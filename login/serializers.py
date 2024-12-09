@@ -5,12 +5,12 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 class LoginSerializer(serializers.Serializer):
     correo_electronico = serializers.EmailField()
-    contrasena = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True)  # Cambiado de 'contrasena' a 'password'
     token = serializers.CharField(read_only=True)
 
     def validate(self, data):
         correo_electronico = data.get("correo_electronico")
-        contrasena = data.get("contrasena")
+        password = data.get("password")  # Cambiado de 'contrasena' a 'password'
 
         # Verificar si el usuario existe en la base de datos
         try:
@@ -18,8 +18,12 @@ class LoginSerializer(serializers.Serializer):
         except Usuario.DoesNotExist:
             raise serializers.ValidationError("Correo o contraseña inválidos.")
 
+        # Verificar si el estado es "activo"
+        if usuario.estado != 'activo':
+            raise serializers.ValidationError("El usuario no está activo.")
+
         # Verificar si la contraseña es correcta
-        if not check_password(contrasena, usuario.contrasena):
+        if not check_password(password, usuario.password):
             raise serializers.ValidationError("Correo o contraseña inválidos.")
 
         # Generar el token JWT usando rest_framework_simplejwt
