@@ -5,6 +5,7 @@ from .serializers import LoginSerializer
 from registro.models import Usuario
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.utils.timezone import now
 
 # Create your views here.
 
@@ -41,6 +42,10 @@ class LoginView(APIView):
             return Response({
                 'mensaje': 'Correo o contraseña inválidos.'
             }, status=status.HTTP_400_BAD_REQUEST)
+
+        #actualiza fecha y hora despue del login
+        usuario.last_login = now()
+        usuario.save(update_fields=['last_login'])
 
         # Generar el token JWT
         refresh = RefreshToken.for_user(usuario)
