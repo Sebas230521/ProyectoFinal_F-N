@@ -63,7 +63,7 @@ def confirmar_codigo(request):
             intentos += 1
             request.session['intentos'] = intentos
             if intentos > 6:
-                 # Limpiar la sesión si se superan los intentos
+                # Limpiar la sesión si se superan los intentos
                 del request.session['codigo_recuperacion']
                 del request.session['codigo_creado_en']
                 del request.session['intentos']
