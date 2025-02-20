@@ -1,11 +1,8 @@
-from django.urls import path, include
-from . import views
-
-app_name = 'recover_password'  
+from django.urls import path
+from .views import SolicitarRecuperacion, ConfirmarCodigo, CambiarContraseña
 
 urlpatterns = [
-    path('solicitar/', views.solicitar_recuperacion, name='solicitar_recuperacion'),
-    path('confirmar/', views.confirmar_codigo, name='confirmar_codigo'),
-    path('cambiar/', views.cambiar_contraseña, name='cambiar_contraseña'),
-    
+    path('solicitar/', SolicitarRecuperacion.as_view(), name='solicitar_recuperacion'),
+    path('confirmar/', ConfirmarCodigo.as_view(), name='confirmar_codigo'),
+    path('cambiar/', CambiarContraseña.as_view(), name='cambiar_contraseña'),
 ]

@@ -1,105 +1,106 @@
-from django.shortcuts import render, redirect
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from django.utils import timezone
+from datetime import timedelta
 from django.core.mail import send_mail
 from django.conf import settings
 import random
-from django.contrib import messages
-from django.utils import timezone
-from datetime import timedelta
-from django.utils import timezone
 from registro.models import Usuario
-# Create your views here.
+from .serializers import (
+    SolicitarRecuperacionSerializer,
+    ConfirmarCodigoSerializer,
+    RecuperarContraseñaSerializer
+)
 
-def solicitar_recuperacion(request):
-    if request.method == 'POST':
-        correo_electronico = request.POST.get('correo_electronico')
-        try:
-            usuario = Usuario.objects.get(correo_electronico=correo_electronico)
-            codigo = random.randint(1000, 9999)
-            
-            # guardar el codigo,fecha y hora de sesion
-            request.session['codigo_recuperacion'] = codigo
-            request.session['usuario_id'] = usuario.id
-            request.session['codigo_creado_en'] = timezone.now().isoformat()            
-            # enviar el correo
-            
-            send_mail(
-                'codigo de recuperación de contraseña',
-                f'tu codigo de recuperacion es:{codigo}. Este codigo expira en 10 minutos.',
-                settings.EMAIL_HOST_USER,
-                [correo_electronico],
-                fail_silently=False,
-            )
-            
-            return redirect('password_reset:confirmar_codigo')
-        except Usuario.DoesNotExist:
-            return render(request, 'password_reset/recuperacion.html', {'error': 'El correo electrónico no está registrado.'})
-    return render(request, 'password_reset/recuperacion.html')
+class SolicitarRecuperacion(APIView):
+    def post(self, request):
+        serializer = SolicitarRecuperacionSerializer(data=request.data)
+        if serializer.is_valid():
+            correo_electronico = serializer.validated_data['correo_electronico']
+            try:
+                usuario = Usuario.objects.get(correo_electronico=correo_electronico)
+                codigo = random.randint(1000, 9999)
 
-def confirmar_codigo(request):
-    if request.method == 'POST':
-        codigo_usuario = request.POST.get('codigo')
-        codigo_session = request.session.get('codigo_recuperacion')
-        codigo_creado_en = request.session.get('codigo_creado_en')
-        intentos = request.session.get('intentos', 0)
-        
-        if not codigo_creado_en:
-            return render(request, 'password_reset/confirmar_codigo.html', {'error': 'Código no válido o expirado.'})
+                # Guardar código en la sesión
+                request.session['codigo_recuperacion'] = codigo
+                request.session['usuario_id'] = usuario.id
+                request.session['codigo_creado_en'] = timezone.now().isoformat()
 
-        # Convertir la cadena de fecha/hora a un objeto datetime
-        codigo_creado_en = timezone.datetime.fromisoformat(codigo_creado_en)
+                # Enviar el código por correo
+                send_mail(
+                    'Código de recuperación de contraseña',
+                    f'Tu código de recuperación es: {codigo}. Expira en 10 minutos.',
+                    settings.EMAIL_HOST_USER,
+                    [correo_electronico],
+                    fail_silently=False,
+                )
 
-        # Verificar si el código ha expirado (por ejemplo, después de 15 minutos)
-        tiempo_expiracion = timedelta(minutes=settings.CODIGO_RECUPERACION_EXPIRA_MINUTOS)
-        
-        if timezone.now() > codigo_creado_en + tiempo_expiracion:
-            del request.session['codigo_recuperacion']
-            del request.session['codigo_creado_en']
-            return render(request, 'password_reset/confirmar_codigo.html', {'error': 'El código ha expirado. Solicita uno nuevo.'})
-        
-        
-        if int(codigo_usuario) == codigo_session:
-            return redirect('password_reset:cambiar_contraseña')
-        else:
-            intentos += 1
-            request.session['intentos'] = intentos
-            if intentos > 6:
-                # Limpiar la sesión si se superan los intentos
-                del request.session['codigo_recuperacion']
-                del request.session['codigo_creado_en']
-                del request.session['intentos']
-            return render(request, 'password_reset/confirmar_codigo.html', {'error': 'Código incorrecto. Intetalo de nuevo.'})
-    return render(request, 'password_reset/confirmar_codigo.html')
+                return Response({'mensaje': 'Código enviado al correo electrónico.'}, status=status.HTTP_200_OK)
 
-def cambiar_contraseña(request):
-    if request.method == 'POST':
-        nueva_contraseña = request.POST.get('nueva_contraseña')
-        usuario_id = request.session.get('usuario_id')
-        codigo_recuperacion = request.session.get('codigo_recuperacion')
-        
-        # Verificar si el código de recuperación aún está en la sesión
-        if not codigo_recuperacion:
-            messages.error(request, 'Código no válido o expirado.')
-            return redirect(request, 'password_reset:solicitar_recuperacion')
+            except Usuario.DoesNotExist:
+                return Response({'mensaje': 'Si el correo está registrado, recibirás un código de recuperación.'}, status=status.HTTP_200_OK)
 
-        try:
-            usuario = Usuario.objects.get(id=usuario_id)
-            usuario.set_password(nueva_contraseña)  # Encripta y guarda la nueva contraseña
-            usuario.save()
-        
-            # Limpiar la sesión
-            del request.session['codigo_recuperacion']
-            del request.session['usuario_id']
-            del request.session['codigo_creado_en']
-            
-            messages.success(request, 'Contraseña cambiada exitosamente. Por favor, inicia sesión con tu nueva contraseña.')
-        
-            return redirect('login')
-        
-        except Usuario.DoesNotExist:
-            messages.error(request, 'Usuario no encontrado.')
-            return redirect('password_reset:solicitar_recuperacion')
-    return render(request, 'password_reset/cambiar_contraseña.html')
-        
-    return render(request, 'password_reset/cambiar_contraseña.html')
-        
-        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ConfirmarCodigo(APIView):
+    def post(self, request):
+        serializer = ConfirmarCodigoSerializer(data=request.data)
+        if serializer.is_valid():
+            codigo_usuario = serializer.validated_data['codigo']
+            codigo_session = request.session.get('codigo_recuperacion')
+            codigo_creado_en = request.session.get('codigo_creado_en')
+
+            if not codigo_creado_en or not codigo_session:
+                return Response({'error': 'Código no válido o expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Convertir la fecha de creación
+            codigo_creado_en = timezone.datetime.fromisoformat(codigo_creado_en)
+            tiempo_expiracion = timedelta(minutes=settings.CODIGO_RECUPERACION_EXPIRA_MINUTOS)
+
+            if timezone.now() > codigo_creado_en + tiempo_expiracion:
+                request.session.flush()
+                return Response({'error': 'El código ha expirado. Solicita uno nuevo.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            if codigo_usuario == codigo_session:
+                return Response({'mensaje': 'Código válido. Procede a cambiar la contraseña.'}, status=status.HTTP_200_OK)
+
+            return Response({'error': 'Código incorrecto.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CambiarContraseña(APIView):
+    def post(self, request):
+        serializer = RecuperarContraseñaSerializer(data=request.data)
+        if serializer.is_valid():
+            usuario_id = request.session.get('usuario_id')
+            codigo_recuperacion = request.session.get('codigo_recuperacion')
+
+            if not codigo_recuperacion:
+                return Response({'error': 'Código no válido o expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            try:
+                usuario = Usuario.objects.get(id=usuario_id)
+
+                # Guardar la nueva contraseña
+                usuario.set_password(serializer.validated_data['nueva_contraseña'])
+                usuario.save()
+
+                # Limpiar la sesión
+                request.session.flush()
+
+                # Enviar correo de confirmación
+                send_mail(
+                    'Contraseña Cambiada con Éxito',
+                    'Tu contraseña ha sido actualizada correctamente.',
+                    settings.EMAIL_HOST_USER,
+                    [usuario.correo_electronico],
+                    fail_silently=False,
+                )
+
+                return Response({'mensaje': 'Contraseña cambiada exitosamente. Revisa tu correo.'}, status=status.HTTP_200_OK)
+
+            except Usuario.DoesNotExist:
+                return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

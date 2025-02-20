@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'registro',
     'login',
     'recover_password',
+    'rest_framework',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -81,6 +82,7 @@ MIDDLEWARE = [
 ]
 
 REST_FRAMEWORK = {
+    
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
@@ -127,7 +129,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish_nexus',
         'USER': 'root',
-        'PASSWORD': 'kaneki2712',
+        'PASSWORD': 'jd1090050183',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
