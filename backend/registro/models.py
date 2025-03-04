@@ -1,7 +1,6 @@
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
 # Create your models here.
 class UsuarioManager(BaseUserManager):
     def create_user(self, correo_electronico, nombre, password=None, **extra_fields):
