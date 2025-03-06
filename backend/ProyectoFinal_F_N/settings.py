@@ -15,7 +15,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Cargar las variables del archivo .env
+load_dotenv("conf.env") # Cargar las variables del archivo .env
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
