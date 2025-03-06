@@ -143,11 +143,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish_nexus',
         'USER': 'root',
-<<<<<<< HEAD
         'PASSWORD': 'kaneki2712',
-=======
-        'PASSWORD': 'Jd1090050183',
->>>>>>> 3b61c2e4d1569789904130fb1a15f691afc59a88
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
