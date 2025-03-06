@@ -4,6 +4,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from .serializers import UsuarioSerializer
 from .models import Usuario
+from django.core.mail import send_mail
+from django.utils import timezone
+import random
+
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
