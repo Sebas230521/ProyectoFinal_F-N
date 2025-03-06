@@ -7,8 +7,8 @@ from django.contrib.auth.password_validation import validate_password
 class SolicitarRecuperacionSerializer(serializers.Serializer):
     correo_electronico = serializers.EmailField()
 
-class ConfirmarCodigoSerializer(serializers.Serializer):
-    codigo = serializers.IntegerField()
+class ConfirmarTokenSerializer(serializers.Serializer):
+    token = serializers.CharField()
 
 class RecuperarContraseñaSerializer(serializers.Serializer):
     nueva_contraseña = serializers.CharField(write_only=True)

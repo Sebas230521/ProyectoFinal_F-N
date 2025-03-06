@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import SolicitarRecuperacion, ConfirmarCodigo, CambiarContraseña
+from .views import SolicitarRecuperacion, ConfirmarRecuperacion, CambiarContraseña
 
 urlpatterns = [
     path('solicitar/', SolicitarRecuperacion.as_view(), name='solicitar_recuperacion'),
-    path('confirmar/', ConfirmarCodigo.as_view(), name='confirmar_codigo'),
+    path('confirmar/<str:token>/', ConfirmarRecuperacion.as_view(), name='confirmar_link'),  # Corregido
     path('cambiar/', CambiarContraseña.as_view(), name='cambiar_contraseña'),
 ]
