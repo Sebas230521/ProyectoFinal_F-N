@@ -12,10 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-from dotenv import load_dotenv
-import os
 
-load_dotenv()  # Cargar las variables del archivo .env
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -54,8 +51,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Servidor SMTP
 EMAIL_PORT = 587  # Puerto para TLS
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD') # Tu contraseña de correo electrónico
+EMAIL_HOST_USER='fishnexus5@gmail.com'
+EMAIL_HOST_PASSWORD='vvje psnn bwbb eybt'
+ # Tu contraseña de correo electrónico
 
 DEFAULT_FROM_EMAIL = 'fishnexus5@gmail.com'
 
@@ -143,7 +141,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish_nexus',
         'USER': 'root',
-        'PASSWORD': 'kaneki2712',
+        'PASSWORD': 'Jd1090050183',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
