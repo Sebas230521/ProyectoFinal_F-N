@@ -5,10 +5,7 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
 from registro.models import Usuario
-from .serializers import (
-    SolicitarRecuperacionSerializer,
-    RecuperarContraseñaSerializer
-)
+
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from django.urls import reverse  # Para generar la URL del enlace
 
@@ -39,7 +36,7 @@ class SolicitarRecuperacion(APIView):
         except Usuario.DoesNotExist:
             return Response({'mensaje': 'Si el correo está registrado, recibirás un enlace de recuperación.'}, status=status.HTTP_200_OK)
 
-       
+
 
 class ConfirmarRecuperacion(APIView):
     def post(self, request, token):
@@ -82,38 +79,3 @@ class ConfirmarRecuperacion(APIView):
         
     
 
-class CambiarContraseña(APIView):
-    def post(self, request):
-        serializer = RecuperarContraseñaSerializer(data=request.data)
-        if serializer.is_valid():
-            usuario_id = request.session.get('usuario_id')
-            codigo_recuperacion = request.session.get('codigo_recuperacion')
-
-            if not codigo_recuperacion:
-                return Response({'error': 'Código no válido o expirado.'}, status=status.HTTP_400_BAD_REQUEST)
-
-            try:
-                usuario = Usuario.objects.get(id=usuario_id)
-
-                # Guardar la nueva contraseña
-                usuario.set_password(serializer.validated_data['nueva_contraseña'])
-                usuario.save()
-
-                # Limpiar la sesión
-                request.session.flush()
-
-                # Enviar correo de confirmación
-                send_mail(
-                    'Contraseña Cambiada con Éxito',
-                    'Tu contraseña ha sido actualizada correctamente.',
-                    settings.EMAIL_HOST_USER,
-                    [usuario.correo_electronico],
-                    fail_silently=False,
-                )
-
-                return Response({'mensaje': 'Contraseña cambiada exitosamente. Revisa tu correo.'}, status=status.HTTP_200_OK)
-
-            except Usuario.DoesNotExist:
-                return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_400_BAD_REQUEST)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
