@@ -110,7 +110,8 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-AUTH_USER_MODEL = 'registro.Usuario'  # Cambia 'registro' por el nombre de la app donde está el modelo Usuario
+AUTH_USER_MODEL = 'registro.Usuario'
+  # Cambia 'registro' por el nombre de la app donde está el modelo Usuario
 
 ROOT_URLCONF = 'ProyectoFinal_F_N.urls'
 

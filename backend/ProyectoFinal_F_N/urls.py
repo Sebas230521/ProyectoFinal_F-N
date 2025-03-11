@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('registro/', include('registro.urls')),
     path('login/', include('login.urls')),
-    path('recover_password/', include('recover_password.urls'))
+     path('recover_password/', include('recover_password.urls')),
 ]
