@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import menuView from '@/components/menuView.vue';  // Asegúrate de que la ruta es correcta
+
 
 const routes = [
   {
@@ -31,6 +33,11 @@ const routes = [
     path: '/register-procedures',   // La URL que mostrará el formulario
     name: 'RegistroProcedimiento',
     component: () => import (/* webpackChunKName: "UpdatePassword" */'../components/ProceduresForm.vue'),
+  },
+  {
+    path: '/menu',
+    name: 'Menu',
+    component: menuView
   }
 ]
 
