@@ -1,41 +1,83 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from django.utils import timezone
 from django.core.mail import send_mail
 from django.conf import settings
+<<<<<<< HEAD
+=======
 from registro.models import Usuario
 
+>>>>>>> 717431aa13641dc6fd1ab8ca5859f94c895921fa
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
-from django.urls import reverse  # Para generar la URL del enlace
+from registro.models import Usuario
+from .serializers import SolicitarRecuperacionSerializer, RecuperarContraseñaSerializer
+from django.urls import reverse
 
 class SolicitarRecuperacion(APIView):
     def post(self, request):
-        correo_electronico = request.data['correo_electronico']
+        serializer = SolicitarRecuperacionSerializer(data=request.data)
+        if serializer.is_valid():
+            correo_electronico = serializer.validated_data['correo_electronico']
+            try:
+                usuario = Usuario.objects.get(correo_electronico=correo_electronico)
+
+                # Generar token firmado
+                signer = TimestampSigner()
+                token = signer.sign(usuario.id)  # Cifra el ID del usuario
+
+                # Enviar solo el token al frontend
+                return Response({"token": token}, status=status.HTTP_200_OK)
+
+            except Usuario.DoesNotExist:
+                return Response({'mensaje': 'Si el correo está registrado, recibirás un enlace de recuperación.'}, status=status.HTTP_200_OK)
+
+<<<<<<< HEAD
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ConfirmarRecuperacion(APIView):
+    def post(self, request):
+        token = request.data.get("token")  # El frontend solo envía el token
+
+        if not token:
+            return Response({'error': 'Token no proporcionado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        signer = TimestampSigner()
         try:
-            usuario = Usuario.objects.get(correo_electronico=correo_electronico)   # Generar un token firmado con el ID del usuario
+            usuario_id = signer.unsign(token, max_age=600)  # Desencripta el token
+            return Response({"mensaje": "Token válido."}, status=status.HTTP_200_OK)
+
+        except (BadSignature, SignatureExpired):
+            return Response({'error': 'El enlace es inválido o ha expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        
+        
+class RestablecerContraseña(APIView):
+    def post(self, request):
+        token = request.data.get("token")
+        serializer = RecuperarContraseñaSerializer(data=request.data)
+
+        if not token:
+            return Response({'error': 'Token no proporcionado.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if serializer.is_valid():
             signer = TimestampSigner()
-            token = signer.sign(usuario.id)  # Ejemplo: "45:sdf876sdf87dsf987"
+            try:
+                usuario_id = signer.unsign(token, max_age=600)
+                usuario = Usuario.objects.get(id=usuario_id)
 
-            # Generar la URL de recuperación con el token
-            url_recuperacion = request.build_absolute_uri(
-                reverse('confirmar_link', kwargs={'token': token})
-            )
-            
-            # Enviar el enlace por correo
-            send_mail(
-                'Recuperación de contraseña',
-                f'Usa el siguiente enlace para restablecer tu contraseña: {url_recuperacion}\n\nEste enlace expira en 10 minutos.',
-                settings.EMAIL_HOST_USER,
-                [correo_electronico],
-                fail_silently=False,
-            )
+                # Guardar la nueva contraseña
+                usuario.set_password(serializer.validated_data['nueva_contraseña'])
+                usuario.save()
 
-            return Response({'mensaje': 'Se a  enviado un enlace de recuperacion al correo electrónico.'}, status=status.HTTP_200_OK)
+                return Response({'mensaje': 'Contraseña actualizada correctamente.'}, status=status.HTTP_200_OK)
 
-        except Usuario.DoesNotExist:
-            return Response({'mensaje': 'Si el correo está registrado, recibirás un enlace de recuperación.'}, status=status.HTTP_200_OK)
+            except (BadSignature, SignatureExpired):
+                return Response({'error': 'El enlace es inválido o ha expirado.'}, status=status.HTTP_400_BAD_REQUEST)
+            except Usuario.DoesNotExist:
+                return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+=======
 
 
 class ConfirmarRecuperacion(APIView):
@@ -79,3 +121,4 @@ class ConfirmarRecuperacion(APIView):
         
     
 
+>>>>>>> 717431aa13641dc6fd1ab8ca5859f94c895921fa
