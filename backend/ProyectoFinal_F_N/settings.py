@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'registro',
     'login',
-    'recover_password',
     'rest_framework',
 ]
 
@@ -139,7 +138,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish_nexus',
         'USER': 'root',
-        'PASSWORD': 'Jd1090050183',
+        'PASSWORD': 'kaneki2712',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }

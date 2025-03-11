@@ -21,7 +21,7 @@ def registro(request):
                 }, status=400)
 
             # Validar que las contraseñas coincidan
-            if data['password1'] != data['password2']:
+            if data['password'] != data['confirmPassword']:
                 return JsonResponse({
                     'error': 'Las contraseñas no coinciden'
                 }, status=400)
@@ -29,9 +29,9 @@ def registro(request):
             # Crear el usuario manualmente
             user = Usuario.objects.create_user(
                 nombre=data['nombre'],
-                correo_electronico=data['correo_electronico'],
                 celular=data['celular'],
-                password=data['password1'],
+                email=data['email'],
+                password=data['password'],
                 estado='Activo'  # Se establece automáticamente
             )
 
