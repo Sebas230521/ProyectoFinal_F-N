@@ -108,7 +108,7 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'registro.Usuario'
-  # Cambia 'registro' por el nombre de la app donde está el modelo Usuario
+# Cambia 'registro' por el nombre de la app donde está el modelo Usuario
 
 ROOT_URLCONF = 'ProyectoFinal_F_N.urls'
 
