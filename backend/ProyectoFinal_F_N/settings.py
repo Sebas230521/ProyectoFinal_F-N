@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'registro',
     'login',
-    'recover_password',
     'rest_framework',
 ]
 
@@ -52,8 +51,7 @@ EMAIL_HOST = 'smtp.gmail.com'  # Servidor SMTP
 EMAIL_PORT = 587  # Puerto para TLS
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER='fishnexus5@gmail.com'
-EMAIL_HOST_PASSWORD='vvje psnn bwbb eybt'
- # Tu contraseña de correo electrónico
+EMAIL_HOST_PASSWORD='vvje psnn bwbb eybt'# Tu contraseña de correo electrónico
 
 DEFAULT_FROM_EMAIL = 'fishnexus5@gmail.com'
 
@@ -90,7 +88,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
 
-FRONTEND_URL = "https://miweb.com"
 
 
 REST_FRAMEWORK = {
@@ -142,7 +139,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish_nexus',
         'USER': 'root',
-        'PASSWORD': 'Jd1090050183',
+        'PASSWORD': 'kaneki2712',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
