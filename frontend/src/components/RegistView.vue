@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 class="text-center mb-4"><strong>Registro de Usuario</strong></h2>
-        <form @submit.prevent="register">
+        <form @submit.prevent="registro">
             <div class="mb-3 input-group input-group-sm w-50 mx-auto">
                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                 <input type="text" placeholder="Nombre usuario" class="form-control" v-model="user.nombre" required>
@@ -48,6 +48,8 @@
 </template>
 
 <script>
+import { register } from '../api/AuthService';
+
 export default {
     data() {
         return {
@@ -61,6 +63,7 @@ export default {
             },
             passwordFieldType: 'password',
             errorMessage: '',
+            successMessage: ''
         };
     },
     computed: {
@@ -69,10 +72,11 @@ export default {
         }
     },
     methods: {
-        register() {
+        async registro() {
             this.errorMessage = '';
             this.successMessage = '';
 
+            // Validar celular
             if (!/^\d+$/.test(this.user.celular)) {
                 this.errorMessage = 'El número de celular solo debe contener dígitos.';
                 return;
@@ -83,23 +87,38 @@ export default {
                     : 'El número de celular tiene más de 10 dígitos.';
                 return;
             }
+
+            // Validar contraseñas
             if (this.user.password !== this.user.confirmPassword) {
                 this.errorMessage = 'Las contraseñas no coinciden.';
                 return;
             }
 
-            this.successMessage = '¡Registro exitoso!';
-            setTimeout(() => {
-                this.resetForm();
-            }, 5000);
+            try {
+                // Enviar datos al backend
+                const response = await register({
+                    nombre: this.user.nombre,
+                    celular: this.user.celular,
+                    correo_electronico: this.user.correo_electronico, // Usa el nombre correcto del backend
+                    password1: this.user.password1, 
+                    password2: this.user.password2
+                });
+
+                this.successMessage = response.mensaje;
+                setTimeout(() => {
+                    this.resetForm();
+                }, 3000);
+            } catch (error) {
+                this.errorMessage = error.response?.data?.error || "Error en el registro.";
+            }
         },
         resetForm() {
             this.user = {
                 nombre: '',
                 celular: '',
-                email: '',
-                password: '',
-                confirmPassword: '',
+                correo_electronico: '',
+                password1: '',
+                password2: '',
                 tyc: false
             };
         },
@@ -136,3 +155,6 @@ export default {
     margin: 2px;
 }
 </style>
+
+
+

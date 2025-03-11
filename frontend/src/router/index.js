@@ -8,8 +8,8 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/register', // Ruta alternativa para el registro
-    name: 'register',
+    path: '/registro', // Ruta alternativa para el registro
+    name: 'registro',
     component: HomeView
   },
   {
