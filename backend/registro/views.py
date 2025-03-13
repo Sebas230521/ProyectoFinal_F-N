@@ -1,12 +1,18 @@
 from django.http import JsonResponse
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.decorators import api_view 
+from django.views.decorators.csrf import ensure_csrf_cookie
 from .serializers import UsuarioSerializer
 from .models import Usuario
 
 
+
+@api_view(["GET"])
+@ensure_csrf_cookie
+def get_csrf_token(request):
+    return JsonResponse({"message": "CSRF cookie enviado correctaeamente"}, status=200)
+
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@ensure_csrf_cookie  #envio el token por kokies , tienen que devolver el token para que le permita la solicitud
 def registro(request):
     if request.method == 'POST':
         try:
@@ -31,7 +37,7 @@ def registro(request):
                 nombre=data['nombre'],
                 celular=data['celular'],
                 correo_electronico=data['correo_electronico'],
-                password=data['password'],
+                password=data['password1'],
                 estado='Activo'  # Se establece automáticamente
             )
 
