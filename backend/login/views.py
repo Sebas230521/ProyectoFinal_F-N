@@ -34,7 +34,7 @@ class LoginView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
         # Verificar si el usuario está activo
-        if usuario.estado != 'activo':
+        if usuario.estado != 'Activo':
             return Response({
                 'mensaje': 'El usuario no está activo.'
             }, status=status.HTTP_400_BAD_REQUEST)
