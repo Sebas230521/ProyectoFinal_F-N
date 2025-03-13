@@ -21,8 +21,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('registro/', include('registro.urls')),
     path('login/', include('login.urls')),
+<<<<<<< HEAD
 
     path('recover_password/', include('recover_password.urls')),
 
 
+=======
+    path('recover_password/', include('recover_password.urls')),
+
+>>>>>>> 1c199d0becb53c9e12f05d6f69d72d2d36e5b570
 ]

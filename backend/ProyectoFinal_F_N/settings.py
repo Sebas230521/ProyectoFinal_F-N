@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-n@r%-_laj)b+64%3j7*n#izgor9sqcm0#y=5ww!_&h7e%29%i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Application definition
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'registro',
     'login',
     'rest_framework',
+    'rest_framework.simplejwt',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -61,7 +62,7 @@ TOKEN_RECUPERACION_EXPIRA_MINUTOS = 10
 
 SESSION_COOKIE_SECURE = True  # Solo enviar cookies de sesión sobre HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Evitar acceso a cookies desde JavaScript
-CSRF_COOKIE_SECURE = True  # Solo enviar cookies CSRF sobre HTTPS
+CSRF_COOKIE_SECURE = False  # Solo enviar cookies CSRF sobre HTTPS
 CSRF_COOKIE_HTTPONLY = True  # Evitar acceso a cookies CSRF desde JavaScript
 
 # Configuración de expiración de la sesión
@@ -88,15 +89,23 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",  # Dirección del frontend en desarrollo
+]
+
+CORS_ALLOW_CREDENTIALS = True  # Permite cookies y autenticación
+CORS_ALLOW_HEADERS = ["*"]  # Permite cualquier cabecera
+
 
 
 REST_FRAMEWORK = {
-    
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',  # Asegurar autenticación por token
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',  # Permitir el login sin autenticación previa
+        'rest_framework.permissions.AllowAny',  # Permitir acceso sin autenticación
     ),
 }
 
@@ -108,7 +117,7 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'registro.Usuario'
-  # Cambia 'registro' por el nombre de la app donde está el modelo Usuario
+# Cambia 'registro' por el nombre de la app donde está el modelo Usuario
 
 ROOT_URLCONF = 'ProyectoFinal_F_N.urls'
 
