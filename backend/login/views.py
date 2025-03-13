@@ -6,9 +6,11 @@ from registro.models import Usuario
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils.timezone import now
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny
 
 # Create your views here.
-
+@permission_classes([AllowAny])
 class LoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
