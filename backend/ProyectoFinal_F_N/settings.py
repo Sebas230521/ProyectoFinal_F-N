@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'registro',
     'login',
     'rest_framework',
+    'rest_framework.simplejwt',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
