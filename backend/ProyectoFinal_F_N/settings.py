@@ -28,7 +28,10 @@ SECRET_KEY = 'django-insecure-n@r%-_laj)b+64%3j7*n#izgor9sqcm0#y=5ww!_&h7e%29%i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1", "localhost",
+    "https://b009-2800-484-a585-1a80-d509-db3d-632f-5b37.ngrok-free.app",
+]
 
 
 # Application definition
@@ -41,10 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'registro',
     'login',
-    'rest_framework',
-    'rest_framework.simplejwt',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -87,6 +90,7 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
+    "https://b009-2800-484-a585-1a80-d509-db3d-632f-5b37.ngrok-free.app",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
