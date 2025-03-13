@@ -3,11 +3,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # Create your models here.
 class UsuarioManager(BaseUserManager):
-    def create_user(self, correo_electronico, nombre, password=None, **extra_fields):
+    def create_user(self, correo_electronico, nombre,celular, password=None, **extra_fields):
         if not correo_electronico:
             raise ValueError('El correo electrónico es obligatorio')
         correo_electronico = self.normalize_email(correo_electronico)
-        usuario = self.model(correo_electronico=correo_electronico, nombre=nombre, **extra_fields)
+        usuario = self.model(correo_electronico=correo_electronico, nombre=nombre, celular=celular, **extra_fields)
         usuario.set_password(password)
         usuario.save(using=self._db)
         return usuario
