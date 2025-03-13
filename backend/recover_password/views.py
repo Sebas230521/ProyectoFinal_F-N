@@ -3,11 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
-<<<<<<< HEAD
-=======
+
 from registro.models import Usuario
 
->>>>>>> 717431aa13641dc6fd1ab8ca5859f94c895921fa
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from registro.models import Usuario
 from .serializers import SolicitarRecuperacionSerializer, RecuperarContraseñaSerializer
@@ -31,7 +29,7 @@ class SolicitarRecuperacion(APIView):
             except Usuario.DoesNotExist:
                 return Response({'mensaje': 'Si el correo está registrado, recibirás un enlace de recuperación.'}, status=status.HTTP_200_OK)
 
-<<<<<<< HEAD
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ConfirmarRecuperacion(APIView):
@@ -77,7 +75,7 @@ class RestablecerContraseña(APIView):
                 return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-=======
+
 
 
 class ConfirmarRecuperacion(APIView):
@@ -121,4 +119,4 @@ class ConfirmarRecuperacion(APIView):
         
     
 
->>>>>>> 717431aa13641dc6fd1ab8ca5859f94c895921fa
+
