@@ -1,34 +1,46 @@
 <template>
-        <section class="contai">
+    <section class="contai">
         <div class="form-content">
             <div class="d-flex justify-content-center align-items-center mt-4">
-            <img src="@/assets/Logo_Fish-Nexus.png" alt="logo" class="rounded-circle logo">
+                <img src="@/assets/Fond.png" alt="logo" class="rounded-circle logo">
             </div>
             <form class="text-center" @submit.prevent="login">
-            <div class="input-group">
-                <div class="input-field">
-                <i class="fa-solid fa-envelope"></i>
-                <input type="email" class="form-control" v-model="email" placeholder="Correo" required>
+                <div class="input-group">
+                    <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" class="form-control" v-model="email" placeholder="Correo" required>
+                    </div>
                 </div>
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-field">
-                <i class="fa-solid fa-lock"></i>
-                <input :type="showPassword ? 'text' : 'password'" class="form-control" v-model="password" placeholder="Contraseña" required>
-                <button type="button" id="togglePassword" @click="togglePassword">
-                    <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
-                </button>
+                <div class="input-group mb-3">
+                    <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input :type="showPassword ? 'text' : 'password'" class="form-control" v-model="password" placeholder="Contraseña" required>
+                        <button type="button" id="togglePassword" @click="togglePassword">
+                            <i :class="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <button type="submit" class="btn btn-outline-danger text-light" style="width: 55%;">Iniciar sesión</button>
+
+                <div class="row g-2"><!--aqui van los botones-->
+                    <div class="col-12 col-md-6">
+                        <button type="submit" class="btn btn-outline-danger w-100 rounded-pill">Iniciar sesión</button>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <button type="submit" class="btn btn-outline-info w-100 rounded-pill" 
+                            @click="goToRegister" :disabled="loading" >
+                            <span v-if="!loading">Registro</span>
+                            <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+                        </button>
+                    </div>
+                </div>
+
                 <div id="messageBox"></div>
-            </div>
-            <p class="m-2">Olvidaste tu contraseña <a href="#">click aquí</a></p>
+                <p class="m-2">Olvidaste tu contraseña <a href="#">click aquí</a></p>
             </form>
         </div>
-        </section>
+    </section>
 </template>
+
 
 <script>
     export default {
@@ -38,21 +50,29 @@
             email: '',
             password: '',
             showPassword: false,
+            loading: false, //para la animación de carga
         };
         },
         methods: {
-        togglePassword() {
-            this.showPassword = !this.showPassword;
+    togglePassword() {
+        this.showPassword = !this.showPassword;
+    },
+    login() {
+        console.log('Intentando iniciar sesión con:', this.email, this.password);
+    },
+    goToRegister() {
+        this.loading = true;  // Activa el estado de carga
+
+        setTimeout(() => {
+            this.$router.push('/registro');  // Redirige 
+        }, 2000);
+    }
         },
-        login() {
-            console.log('Intentando iniciar sesión con:', this.email, this.password);
-        }
-        }
-    };
+};
 </script>
-    
+
+
 <style scoped>
-    
     
     .form-content {
         width: 100%;

@@ -1,36 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/LogiView.vue'
 
 const routes = [
   {
-    path: '/',  // Ruta principal
-    name: 'home',
-    component: HomeView
+    path: '/',  // Redirige a login automáticamente
+    redirect: '/login'
   },
   {
-    path: '/registro', // Ruta alternativa para el registro
-    name: 'registro',
-    component: HomeView
-  },
-  {
-    path: '/login', //Ruta del login 
+    path: '/login',  // Ruta principal ahora es el login
     name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/LogiView.vue') 
+    component: LoginView
+  },
+  {
+    path: '/registro',
+    name: 'registro',
+    component: () => import(/* webpackChunkName: "registro" */ '../views/HomeView.vue')
   },
   {
     path: '/reset-password',
-    name: 'ResetPassword',
-    component: () => import (/* webpackChunKName: "ResetPassword" */ '../components/ResetPassword.vue'),
+    name: 'resetPassword',
+    component: () => import(/* webpackChunkName: "resetPassword" */ '../components/ResetPassword.vue'),
   },
   {
     path: '/update-password',
-    name: 'UpdatePassword',
-    component: () => import (/* webpackChunKName: "UpdatePassword" */ '../components/UpdatePassword.vue'),
+    name: 'updatePassword',
+    component: () => import(/* webpackChunkName: "updatePassword" */ '../components/UpdatePassword.vue'),
   },
   {
-    path: '/register-procedures',   // La URL que mostrará el formulario
-    name: 'RegistroProcedimiento',
-    component: () => import (/* webpackChunKName: "UpdatePassword" */'../components/ProceduresForm.vue'),
+    path: '/register-procedures',
+    name: 'registroProcedimiento',
+    component: () => import(/* webpackChunkName: "proceduresForm" */ '../components/ProceduresForm.vue'),
   }
 ]
 

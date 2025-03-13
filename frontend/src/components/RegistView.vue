@@ -1,42 +1,56 @@
 <template>
-    <div>
+    <div class="container">
         <h2 class="text-center mb-4"><strong>Registro de Usuario</strong></h2>
         <form @submit.prevent="registro">
-            <div class="mb-3 input-group input-group-sm w-50 mx-auto">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                <input type="text" placeholder="Nombre usuario" class="form-control" v-model="user.nombre" required>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        <input type="text" placeholder="Nombre usuario" class="form-control" v-model="user.nombre" required>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                        <input type="tel" placeholder="Celular" class="form-control" v-model="user.celular" required>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <input type="email" placeholder="Correo electrónico" class="form-control" v-model="user.email" required>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                        <input :type="passwordFieldType" placeholder="Contraseña" class="form-control" v-model="user.password" required>
+                        <button type="button" class="btn btn-outline-light btn-sm" @click="togglePasswordVisibility">
+                            <i :class="passwordFieldIcon"></i>
+                        </button>
+                    </div>
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text"><i class="fas fa-check"></i></span>
+                        <input :type="passwordFieldType" placeholder="Confirmar contraseña" class="form-control" v-model="user.confirmPassword" required>
+                        <button type="button" class="btn btn-outline-light btn-sm" @click="togglePasswordVisibility">
+                            <i :class="passwordFieldIcon"></i>
+                        </button>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input type="checkbox" class="form-check-input" id="tyc" v-model="user.tyc" required>
+                        <label class="form-check-label" for="tyc">Aceptar TyC</label>
+                    </div>
+                </div>
             </div>
-            <div class="mb-3 input-group input-group-sm w-50 mx-auto">
-                <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                <input type="tel" placeholder="Celular" class="form-control" v-model="user.celular" required>
-            </div>
-            <div class="mb-3 input-group input-group-sm w-50 mx-auto">
-                <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                <input type="email" placeholder="Correo electrónico" class="form-control" v-model="user.email" required>
-            </div>
-            <div class="mb-3 input-group input-group-sm w-50 mx-auto">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                <input :type="passwordFieldType" placeholder="Contraseña" class="form-control" v-model="user.password" required>
-                <button type="button" class="btn btn-outline-light btn-sm" @click="togglePasswordVisibility">
-                    <i :class="passwordFieldIcon"></i>
-                </button>
-            </div>
-            <div class="mb-3 input-group input-group-sm w-50 mx-auto">
-                <span class="input-group-text"><i class="fas fa-check"></i></span>
-                <input :type="passwordFieldType" placeholder="Confirmar contraseña" class="form-control" v-model="user.confirmPassword" required>
-                <button type="button" class="btn btn-outline-light btn-sm" @click="togglePasswordVisibility">
-                    <i :class="passwordFieldIcon"></i>
-                </button>
-            </div>
-            <div class="form-check mt-2 w-50 mx-auto">
-                <input type="checkbox" class="form-check-input" id="tyc" v-model="user.tyc" required>
-                <label class="form-check-label" for="tyc">Aceptar TyC</label>
-            </div>
-            <div class="d-flex justify-content-center mt-3">
-                <button type="submit" class="btn btn-custom btn-sm">Registrar</button>
+
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-2 mt-2">
+                <div class="w-100 w-md-auto" style="max-width: 150px;">
+                    <button type="submit" class="btn btn-custom btn-sm w-100 rounded-pill">Registrar</button>
+                </div>
+                <div class="w-100 w-md-auto" style="max-width: 150px;">
+                    <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill" @click="goToLogin" :disabled="loading">
+                        <span v-if="!loading">Iniciar sesión</span>
+                        <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+                    </button>
+                </div>
             </div>
         </form>
-        <div class="message-container"> 
+
+        <div class="message-container mt-3"> 
             <div v-if="errorMessage" class="alert alert-danger text-center">
                 {{ errorMessage }}
             </div>
@@ -46,6 +60,7 @@
         </div>
     </div>
 </template>
+
 
 <script>
 import { register } from '../api/AuthService';
@@ -63,7 +78,8 @@ export default {
             },
             passwordFieldType: 'password',
             errorMessage: '',
-            successMessage: ''
+            successMessage: '',
+            loading:false //para animacion de carga
         };
     },
     computed: {
@@ -99,15 +115,15 @@ export default {
                 const response = await register({
                     nombre: this.user.nombre,
                     celular: this.user.celular,
-                    correo_electronico: this.user.correo_electronico, // Usa el nombre correcto del backend
-                    password1: this.user.password1, 
-                    password2: this.user.password2
+                    correo_electronico: this.user.email, 
+                    password1: this.user.password, 
+                    password2: this.user.confirmPassword
                 });
 
                 this.successMessage = response.mensaje;
                 setTimeout(() => {
                     this.resetForm();
-                }, 3000);
+                }, 5000);
             } catch (error) {
                 this.errorMessage = error.response?.data?.error || "Error en el registro.";
             }
@@ -116,14 +132,21 @@ export default {
             this.user = {
                 nombre: '',
                 celular: '',
-                correo_electronico: '',
-                password1: '',
-                password2: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
                 tyc: false
             };
         },
         togglePasswordVisibility() {
             this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+        },
+        goToLogin(){
+            this.loading = true //aqui activa la animacion
+            setTimeout(() =>{
+                this.loading = false;
+                this.$router.push('/login'); //redirige a la pagina "Is"
+            },1500)
         }
     }
 };
