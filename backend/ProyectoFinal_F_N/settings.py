@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "127.0.0.1", "localhost",
-    "https://b009-2800-484-a585-1a80-d509-db3d-632f-5b37.ngrok-free.app",
+    "8071-179-1-217-255.ngrok-free.app",
 ]
 
 
@@ -152,7 +152,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish_nexus',
         'USER': 'root',
-        'PASSWORD': 'kaneki2712',
+        'PASSWORD': 'Jd1090050183',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
