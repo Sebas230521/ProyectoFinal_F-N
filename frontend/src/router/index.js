@@ -30,6 +30,11 @@ const routes = [
     path: '/register-procedures',
     name: 'registroProcedimiento',
     component: () => import(/* webpackChunkName: "proceduresForm" */ '../components/ProceduresForm.vue'),
+  },
+  {
+    path: '/nuevo-estanque',
+    name: 'NuevoEstanque',
+    component: () => import(/* webpackChunkName: "login" */ '../components/EstanqueForm.vue') 
   }
 ]
 
