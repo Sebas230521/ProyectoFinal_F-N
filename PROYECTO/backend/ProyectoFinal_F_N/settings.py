@@ -28,10 +28,7 @@ SECRET_KEY = 'django-insecure-n@r%-_laj)b+64%3j7*n#izgor9sqcm0#y=5ww!_&h7e%29%i4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "127.0.0.1", "localhost",
-    "8071-179-1-217-255.ngrok-free.app",
-]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -44,10 +41,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'rest_framework',
-    'rest_framework_simplejwt',
     'registro',
     'login',
+    'fish_management',
+    'procedimientos',
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -65,7 +64,7 @@ TOKEN_RECUPERACION_EXPIRA_MINUTOS = 10
 
 SESSION_COOKIE_SECURE = True  # Solo enviar cookies de sesión sobre HTTPS
 SESSION_COOKIE_HTTPONLY = True  # Evitar acceso a cookies desde JavaScript
-CSRF_COOKIE_SECURE = False  # Solo enviar cookies CSRF sobre HTTPS
+CSRF_COOKIE_SECURE = True  # Solo enviar cookies CSRF sobre HTTPS
 CSRF_COOKIE_HTTPONLY = True  # Evitar acceso a cookies CSRF desde JavaScript
 
 # Configuración de expiración de la sesión
@@ -90,26 +89,21 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
-    "https://b009-2800-484-a585-1a80-d509-db3d-632f-5b37.ngrok-free.app",
+    "http://localhost:5500",
+    "http://localhost:5173",
+    "http://localhost:5174",
+    "http://localhost:3000",
 ]
-
-CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8080",  # Dirección del frontend en desarrollo
-]
-
-CORS_ALLOW_CREDENTIALS = True  # Permite cookies y autenticación
-CORS_ALLOW_HEADERS = ["*"]  # Permite cualquier cabecera
 
 
 
 REST_FRAMEWORK = {
+    
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',  # Asegurar autenticación por token
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',  # Permitir acceso sin autenticación
+        'rest_framework.permissions.AllowAny',  # Permitir el login sin autenticación previa
     ),
 }
 
@@ -121,7 +115,7 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'registro.Usuario'
-# Cambia 'registro' por el nombre de la app donde está el modelo Usuario
+  # Cambia 'registro' por el nombre de la app donde está el modelo Usuario
 
 ROOT_URLCONF = 'ProyectoFinal_F_N.urls'
 
@@ -150,11 +144,11 @@ WSGI_APPLICATION = 'ProyectoFinal_F_N.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fish_nexus',
-        'USER': 'root',
-        'PASSWORD': 'Jd1090050183',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME': 'fish',  # Nombre de tu base de datos
+        'USER': 'root',  # Tu usuario de MySQL
+        'PASSWORD': 'Jd1090050183',  # No tiene contraseña
+        'HOST': '127.0.0.1',  # Dirección del servidor MySQL
+        'PORT': '3306',  # Puerto de MySQL
     }
 }
 

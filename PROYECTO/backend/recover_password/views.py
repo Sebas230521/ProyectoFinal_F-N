@@ -3,8 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.core.mail import send_mail
 from django.conf import settings
+
 from registro.models import Usuario
-from registro.models import Usuario
+
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 from registro.models import Usuario
 from .serializers import SolicitarRecuperacionSerializer, RecuperarContraseñaSerializer
@@ -116,3 +117,6 @@ class ConfirmarRecuperacion(APIView):
         except Usuario.DoesNotExist:
             return Response({'error': 'Usuario no encontrado.'}, status=status.HTTP_400_BAD_REQUEST)
         
+    
+
+
