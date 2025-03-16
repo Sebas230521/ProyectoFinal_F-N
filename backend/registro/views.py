@@ -13,7 +13,7 @@ def registro(request):
             data = request.data
             serializer = UsuarioSerializer(data=data)
 
-            # Validar el formato de los datos
+            # Validar el formato de los datos|
             if not serializer.is_valid():
                 return JsonResponse({
                     'error': 'Datos inválidos',

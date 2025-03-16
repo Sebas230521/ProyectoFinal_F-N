@@ -31,7 +31,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
 
     "proyecto-final-m1eb.onrender.com",
-    "dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",
+    "9bc7-2800-484-a585-1a80-1c61-27b5-e2fa-897b.ngrok-free.app",
 
 ]
 
@@ -92,16 +92,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://localhost:5500",
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3000",
-    "https://dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",
-    
 
-]
 
 
 CORS_ALLOW_CREDENTIALS = True
@@ -109,9 +100,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # ✅ Permite el frontend local
-
-    "https://dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",  # ✅ Permite el frontend con Ngrok
-
+    "https://9bc7-2800-484-a585-1a80-1c61-27b5-e2fa-897b.ngrok-free.app", # ✅ Permite el frontend con Ngrok
 ]
 
 
@@ -131,8 +120,7 @@ CORS_ALLOW_HEADERS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
-    "https://dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",
-
+    "https://9bc7-2800-484-a585-1a80-1c61-27b5-e2fa-897b.ngrok-free.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # ✅ Permitir envío de cookies o credenciales
