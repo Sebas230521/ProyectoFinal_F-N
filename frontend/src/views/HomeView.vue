@@ -3,9 +3,9 @@
     <div class="container " id="ct">
       <div class="row align-items-center">
         <div class="col-12 col-md-6 d-flex justify-content-center mb-3">
-          <img src="../assets/Logo_Fish-Nexus.png" alt="Logo" class="logo-responsive">
+          <img src="../assets/Fond.png" alt="Logo" class="logo-responsive">
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 ">
           <RegistView/>
         </div>
       </div>
@@ -48,7 +48,6 @@ export default {
 
 .logo-responsive {
   width: 280px;
-
   object-fit: cover;
 }
 </style>
