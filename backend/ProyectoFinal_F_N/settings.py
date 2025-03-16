@@ -26,9 +26,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n@r%-_laj)b+64%3j7*n#izgor9sqcm0#y=5ww!_&h7e%29%i4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+
+    "proyecto-final-m1eb.onrender.com",
+    "dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",
+
+]
 
 
 # Application definition
@@ -93,9 +98,44 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:3000",
+    "https://dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",
+    
+
 ]
 
 
+CORS_ALLOW_CREDENTIALS = True
+
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # ✅ Permite el frontend local
+
+    "https://dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",  # ✅ Permite el frontend con Ngrok
+
+]
+
+
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "dnt",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+    "ngrok-skip-browser-warning",  # 🔥 Agregar este encabezado
+]
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:3000",
+    "https://dcb6-2800-484-a585-1a80-94ab-eb7e-ea0f-1c66.ngrok-free.app",
+
+]
+
+CORS_ALLOW_CREDENTIALS = True  # ✅ Permitir envío de cookies o credenciales
 
 REST_FRAMEWORK = {
     
@@ -112,10 +152,11 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Duración del refresh token
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
 AUTH_USER_MODEL = 'registro.Usuario'
-  # Cambia 'registro' por el nombre de la app donde está el modelo Usuario
+# Cambia 'registro' por el nombre de la app donde está el modelo Usuario
 
 ROOT_URLCONF = 'ProyectoFinal_F_N.urls'
 
@@ -145,10 +186,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'fish',  # Nombre de tu base de datos
-        'USER': 'root',  # Tu usuario de MySQL
-        'PASSWORD': 'Jd1090050183',  # No tiene contraseña
-        'HOST': '127.0.0.1',  # Dirección del servidor MySQL
-        'PORT': '3306',  # Puerto de MySQL
+        'USER': 'avnadmin',  # Tu usuario de MySQL
+        'PASSWORD': 'AVNS_HWIjUZsf6b-yPGrOQXu',  # No tiene contraseña
+        'HOST': 'dbproyectofinal-samuelosoriogaspar-8cec.j.aivencloud.com',  # Dirección del servidor MySQL
+        'PORT': '16159',  # Puerto de MySQL
     }
 }
 
