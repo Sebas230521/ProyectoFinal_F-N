@@ -34,7 +34,7 @@ class Usuario(AbstractBaseUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nombre']
 
-    def __str__(self):
+    def _str_(self):
         return self.nombre
 
     class Meta:

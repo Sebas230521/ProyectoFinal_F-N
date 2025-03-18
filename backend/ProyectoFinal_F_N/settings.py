@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 
+import pymysql
+
+pymysql.install_as_MySQLdb()
+
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,14 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-n@r%-_laj)b+64%3j7*n#izgor9sqcm0#y=5ww!_&h7e%29%i4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
-    "proyecto-final-m1eb.onrender.com",
-    "9bc7-2800-484-a585-1a80-1c61-27b5-e2fa-897b.ngrok-free.app",
-
-]
 
 
 # Application definition
@@ -99,8 +99,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # ✅ Permite el frontend local
-    "https://9bc7-2800-484-a585-1a80-1c61-27b5-e2fa-897b.ngrok-free.app", # ✅ Permite el frontend con Ngrok
+    "http://localhost:8080",  # el frontend local
 ]
 
 
@@ -114,16 +113,15 @@ CORS_ALLOW_HEADERS = [
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
-    "ngrok-skip-browser-warning",  # 🔥 Agregar este encabezado
+    "ngrok-skip-browser-warning",  # Agregar este encabezado
 ]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:3000",
-    "https://9bc7-2800-484-a585-1a80-1c61-27b5-e2fa-897b.ngrok-free.app",
+    "http://127.0.0.1:8000"
 ]
 
-CORS_ALLOW_CREDENTIALS = True  # ✅ Permitir envío de cookies o credenciales
+CORS_ALLOW_CREDENTIALS = True  # Permitir envío de cookies o credenciales
 
 REST_FRAMEWORK = {
     
@@ -171,15 +169,21 @@ WSGI_APPLICATION = 'ProyectoFinal_F_N.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fish',  # Nombre de tu base de datos
-        'USER': 'avnadmin',  # Tu usuario de MySQL
-        'PASSWORD': 'AVNS_HWIjUZsf6b-yPGrOQXu',  # No tiene contraseña
-        'HOST': 'dbproyectofinal-samuelosoriogaspar-8cec.j.aivencloud.com',  # Dirección del servidor MySQL
-        'PORT': '16159',  # Puerto de MySQL
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+    "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'fish_nexus',  # Nombre de tu base de datos
+#         'USER': 'root',  # Tu usuario de MySQL
+#         'PASSWORD': 'Root',  # No tiene contraseña
+#         'HOST': '127.0.0.1',  # Dirección del servidor MySQL
+#         'PORT': '3306',  # Puerto de MySQL
+#     }
+# }
 
 
 # Password validation
