@@ -1,13 +1,14 @@
 <template>
-    <div class="container vh-100 d-flex justify-content-center align-items-center">
+  <div class="c min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="container">
       <div class="row d-flex justify-content-center align-items-center w-100">
         <div class="card col-lg-6 col-md-8 col-sm-10 p-4 shadow">
           <form @submit.prevent="submitForm">
             <div class="text-center">
-              <img src="@/assets/Logo_Fish-Nexus.png" alt="Fish Nexus Logo" class="mb-4" />
-              <h4>Registro de procedimientos</h4>
+              <img src="@/assets/Fond.png" alt="Fish Nexus Logo" class="mb-4 img-fluid" />
+              <h4 class="mb-3">Registro de procedimientos</h4>
             </div>
-  
+
             <!-- Campo de Nombre del Responsable -->
             <div class="mb-3">
               <label for="responsable" class="form-label">
@@ -21,7 +22,7 @@
                 @input="checkFormValidity"
               />
             </div>
-  
+
             <!-- Campo de Selección de Estanque -->
             <div class="mb-3">
               <label for="estanque" class="form-label">
@@ -34,7 +35,7 @@
                 </option>
               </select>
             </div>
-  
+
             <!-- Campo de Tipo de Concentrado -->
             <div class="mb-3">
               <label for="tipoConcentrado" class="form-label">
@@ -43,12 +44,12 @@
               <select v-model="tipoConcentrado" class="form-select" @change="checkFormValidity">
                 <option disabled value="">Seleccione</option>
                 <option value="Alevinaje">Alevinaje</option>
-                <option value="Juveniles">Juveniles</option>
                 <option value="Prejuveniles">Prejuveniles</option>
+                <option value="Juveniles">Juveniles</option>
                 <option value="Engorde">Engorde</option>
               </select>
             </div>
-  
+
             <!-- Campo de Nombre del Procedimiento -->
             <div class="mb-3">
               <label for="nombreProcedimiento" class="form-label">
@@ -62,7 +63,7 @@
                 @input="checkFormValidity"
               />
             </div>
-  
+
             <!-- Campo de Descripción del Procedimiento -->
             <div class="mb-3">
               <label for="descripcionProcedimiento" class="form-label">
@@ -75,7 +76,7 @@
                 @input="checkFormValidity"
               ></textarea>
             </div>
-  
+
             <!-- Campo de Observaciones -->
             <div class="mb-3">
               <label for="observaciones" class="form-label">
@@ -88,30 +89,24 @@
                 @input="checkFormValidity"
               ></textarea>
             </div>
-  
+
             <!-- Botón de Guardar -->
-            <div class="d-grid mt-3">
-              <button type="submit" class="btn btn-success" :disabled="!isFormValid">
-                Guardar
-              </button>
+            <div class="d-flex justify-content-center align-items-center mb-3">
+              <button type="submit" class="btn btn-success  w-50" style="border-color: #007bff;" :disabled="!isFormValid">
+                  Guardar
+              </button> 
             </div>
           </form>
-  
+
           <!-- Mensaje de Error o Éxito -->
           <div v-if="message" class="mt-3 alert" :class="messageClass">
             {{ message }}
           </div>
         </div>
       </div>
-  
-      <!-- Botón de Ayuda -->
-      <div class="position-fixed top-0 end-0 p-3">
-        <button class="btn btn-outline-info">
-          <i class="bi bi-question-circle"></i>
-        </button>
-      </div>
     </div>
-  </template>
+  </div>
+</template>
   
   <script>
   import ApiProcedure from '../api/ApiProcedure';
@@ -196,5 +191,12 @@
   .form-group {
     margin-bottom: 1rem;
   }
-  </style>
   
+  .c {
+    background-color: #e3f2fd;
+  }
+  
+  .text-orange {
+    color: #ff9800;
+  }
+  </style>

@@ -1,86 +1,91 @@
 <template>
-  <div class="container mt-4">
-      <h3 class="text-center">Añadir nuevo estanque</h3>
-      <form @submit.prevent="submitForm">
-          <!-- No Estanque -->
-          <div class="form-group">
-              <label for="numeroEstanque">
-                  <i class="fas fa-clipboard-list"></i> N° estanque
-              </label>
-              <input type="number" v-model="form.numeroEstanque" class="form-control" id="numeroEstanque" required/>
-          </div>
-  
-          <!-- Tipo de Estanque -->
-          <div class="form-group">
-              <label for="tipoEstanque">
-                  <i class="fas fa-box"></i> Tipo de estanque
-              </label>
-              <select v-model="form.tipoEstanque" class="form-control" id="tipoEstanque" required>
-                  <option value="Seleccione">Seleccione</option>
-                  <option value="Geomembrana">Geomembrana</option>
-                  <option value="Tierra">Tierra</option>
-              </select>
-          </div>
-  
-          <!-- Profundidad -->
-          <div class="form-group">
-              <label for="profundidad">
-                  <i class="fas fa-water"></i> Profundidad (m)
-              </label>
-              <input type="number" v-model="form.profundidad" class="form-control" id="profundidad" required/>
-          </div>
-  
-          <!-- Ancho -->
-          <div class="form-group">
-              <label for="ancho">Ancho (m)</label>
-              <input type="number" v-model="form.ancho" class="form-control" id="ancho" required/>
-          </div>
-  
-          <!-- Largo -->
-          <div class="form-group">
-              <label for="largo">Largo (m)</label>
-              <input type="number" v-model="form.largo" class="form-control" id="largo" required/>
-          </div>
-  
-          <!-- Especie de pez -->
-          <div class="form-group">
-              <label for="especiePez">
-                  <i class="fas fa-fish"></i> Especie de pez
-              </label>
-              <select v-model="form.especiePez" class="form-control" id="especiePez" required>
-                  <option value="">Seleccione</option>
-                  <option value="Mojarra Roja">Mojarra Roja</option>
-                  <option value="Mojarra Negra">Mojarra Negra</option>
-                  <option value="Cachama">Cachama</option>
-              </select>
-          </div>
-  
-          <!-- Cantidad -->
-          <div class="form-group">
-              <label for="cantidad">Cantidad</label>
-              <input type="number" v-model="form.cantidad" class="form-control" id="cantidad" required/>
-          </div>
-  
-          <!-- Número de alimento -->
-          <div class="form-group">
-              <label for="numeroAlimento">N° alimento</label>
-              <input type="number" v-model="form.numeroAlimento" class="form-control" id="numeroAlimento" required/>
-          </div>
-  
-          <!-- Fecha de sembrado -->
-          <div class="form-group">
-              <label for="fechaSiembra">Fecha de sembrado</label>
-              <input type="date" v-model="form.fechaSiembra" class="form-control" id="fechaSiembra" required/>
-          </div>
-  
-          <!-- Botón de Guardar -->
-          <button type="submit" class="btn btn-success">Guardar</button>
-      </form>
+  <div class="container mt-4" >
+    <h3 class="text-center" style="font-size: 2rem; font-family: 'Arial', sans-serif; color: #f58220;">Añadir nuevo estanque</h3>
+    <form @submit.prevent="submitForm" class="needs-validation" novalidate>
+        <!-- No Estanque -->
+        <div class="form-group">
+            <label for="numeroEstanque" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fas fa-clipboard-list"></i> N° estanque
+            </label>
+            <input type="number" v-model="form.numeroEstanque" class="form-control" id="numeroEstanque" required />
+        </div>
 
-      <!-- Mensaje de Error o Éxito -->
-      <div v-if="message" class="mt-3 alert" :class="messageClass">
-          {{ message }}
-      </div>
+        <!-- Tipo de Estanque -->
+        <div class="form-group">
+            <label for="tipoEstanque" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fas fa-box"></i> Tipo de estanque
+            </label>
+            <select v-model="form.tipoEstanque" class="form-control" id="tipoEstanque" required>
+                <option value="Seleccione">Seleccione</option>
+                <option value="Geomembrana">Geomembrana</option>
+                <option value="Tierra">Tierra</option>
+            </select>
+        </div>
+
+        <!-- Profundidad -->
+        <div class="form-group">
+            <label for="profundidad" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fas fa-water"></i> Profundidad (m)
+            </label>
+            <input type="number" v-model="form.profundidad" class="form-control" id="profundidad" required />
+        </div>
+
+        <!-- Ancho -->
+        <div class="form-group">
+            <label for="ancho" style="font-size: 1.2rem; font-weight: bold;">Ancho (m)</label>
+            <input type="number" v-model="form.ancho" class="form-control" id="ancho" required />
+        </div>
+
+        <!-- Largo -->
+        <div class="form-group">
+            <label for="largo" style="font-size: 1.2rem; font-weight: bold;">Largo (m)</label>
+            <input type="number" v-model="form.largo" class="form-control" id="largo" required />
+        </div>
+
+        <!-- Especie de pez -->
+        <div class="form-group">
+            <label for="especiePez" style="font-size: 1.2rem; font-weight: bold;">
+                <i class="fas fa-fish"></i> Especie de pez
+            </label>
+            <select v-model="form.especiePez" class="form-control" id="especiePez" required>
+                <option value="">Seleccione</option>
+                <option value="Mojarra Roja">Mojarra Roja</option>
+                <option value="Mojarra Negra">Mojarra Negra</option>
+                <option value="Cachama">Cachama</option>
+            </select>
+        </div>
+
+        <!-- Cantidad -->
+        <div class="form-group">
+            <label for="cantidad" style="font-size: 1.2rem; font-weight: bold;">Cantidad de peces</label>
+            <input type="number" v-model="form.cantidad" class="form-control" id="cantidad" required />
+        </div>
+
+        <!-- Número de alimento -->
+        <div class="form-group">
+            <label for="numeroAlimento" style="font-size: 1.2rem; font-weight: bold;">N° alimento</label>
+            <input type="number" v-model="form.numeroAlimento" class="form-control" id="numeroAlimento" required />
+        </div>
+
+        <!-- Fecha de sembrado -->
+        <div class="form-group">
+            <label for="fechaSiembra" style="font-size: 1.2rem; font-weight: bold;">Fecha de sembrado</label>
+            <input type="date" v-model="form.fechaSiembra" class="form-control" id="fechaSiembra" required />
+        </div>
+
+        <!-- Botón de Guardar -->
+        <div class="d-flex justify-content-center align-items-center mb-3">
+          <button type="submit" class="btn btn-success  w-50" style="border-color: #007bff;">
+              Guardar
+          </button> 
+        </div>
+        
+    </form>
+
+    <!-- Mensaje de Error o Éxito -->
+    <div v-if="message" class="mt-3 alert" :class="messageClass">
+        {{ message }}
+    </div>
   </div>
 </template>
 
@@ -148,7 +153,31 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  max-width: 600px;
+  background-color: #f0f0f0;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-control {
+  font-size: 1rem;
+  border-radius: 4px;
+  padding: 10px;
+}
+
+button {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+h3 {
+  margin-bottom: 1.5rem;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }
 </style>
+
