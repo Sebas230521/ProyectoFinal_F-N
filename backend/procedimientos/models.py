@@ -1,10 +1,5 @@
 from django.db import models
-
-class Fish(models.Model):
-    nombre = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.nombre
+from fish_management.models import Estanque  # Ajusta el path según tu proyecto
 
 class Procedimientos(models.Model):
     CHOICES_TIPO_CONCENTRADO = [
@@ -15,7 +10,7 @@ class Procedimientos(models.Model):
     ]
     
     responsable = models.CharField(max_length=100)
-    estanque = models.ForeignKey(Fish, on_delete=models.CASCADE, related_name="procedimientos")
+    estanque = models.ForeignKey(Estanque, on_delete=models.CASCADE, related_name="procedimientos")
     tipoConcentrado = models.CharField(max_length=20, choices=CHOICES_TIPO_CONCENTRADO)
     nombreProcedimiento = models.CharField(max_length=100)
     descripcionProcedimiento = models.TextField()

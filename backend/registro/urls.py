@@ -1,3 +1,4 @@
+#url de registro django
 from django.urls import path
 from .views import registro
 

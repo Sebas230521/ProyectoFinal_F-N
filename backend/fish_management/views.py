@@ -1,48 +1,72 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import FishSerializerInput
-from .serializers import FishSerializerOutput
 from rest_framework import status
-from .models import Fish
+from .serializers import EstanqueSerializerInput, EstanqueSerializerOutput
+from .models import Estanque
 
-# Create your views here.
-
-class CreateFish(APIView):
+class CreateEstanque(APIView):
     permission_classes = [IsAuthenticated]
+
     def post(self, request):
         try:
-            serializer = FishSerializerInput(data=request.data)
+            usuario = request.user
+            numero_estanque = request.data.get("numero_estanque")
+
+            # Verificar si ya existe un estanque con el mismo número para este usuario
+            if Estanque.objects.filter(id_user=usuario, numero_estanque=numero_estanque).exists():
+                return Response({'error': 'Ya existe un estanque con este número para este usuario.'},
+                                status=status.HTTP_400_BAD_REQUEST)
+
+            serializer = EstanqueSerializerInput(data=request.data, context={'request': request})
             if serializer.is_valid():
-                serializer.save()
-                return Response(FishSerializerOutput(serializer.data).data, status=status.HTTP_201_CREATED)
+                serializer.save(id_user=usuario)
+                return Response(EstanqueSerializerOutput(serializer.instance).data, status=status.HTTP_201_CREATED)
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-        
-class UpdateFish(APIView):
+
+
+class UpdateEstanque(APIView):
     permission_classes = [IsAuthenticated]
-    def patch(self, request, pk=None):  
-        try: 
-            estanque = Fish.objects.get(pk=pk)
-            serializer = FishSerializerInput(data=request.data, instance=estanque, partial=True)
+
+    def patch(self, request, pk=None):
+        try:
+            usuario = request.user
+            # Filtrar por id_user en lugar de usuario
+            estanque_instance = Estanque.objects.get(pk=pk, id_user=usuario)
+
+            serializer = EstanqueSerializerInput(estanque_instance, data=request.data, partial=True)
             if serializer.is_valid():
                 serializer.save()
-                return Response(FishSerializerOutput(serializer.data).data, status=status.HTTP_200_OK)
+                return Response(EstanqueSerializerOutput(serializer.instance).data, status=status.HTTP_200_OK)
+
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Estanque.DoesNotExist:
+            return Response({'error': 'Estanque no encontrado o no tiene permisos.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
-            
-class List(APIView):
+
+
+class ListEstanque(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
-        serializer = FishSerializerOutput(Fish.objects.all(), many=True)
+        usuario = request.user
+        queryset = Estanque.objects.filter(id_user=usuario).order_by("fecha_siembra")
+        serializer = EstanqueSerializerOutput(queryset, many=True)
         return Response(serializer.data)
 
-class Details(APIView):
+
+class DetailsEstanque(APIView):
     permission_classes = [IsAuthenticated]
+
     def get(self, request, pk):
-        serializer = FishSerializerOutput(Fish.objects.get(pk=pk))
-        return Response(serializer.data)        
-
-
+        try:
+            usuario = request.user
+            estanque_instance = Estanque.objects.get(pk=pk, id_user=usuario)
+            serializer = EstanqueSerializerOutput(estanque_instance)
+            return Response(serializer.data)
+        except Estanque.DoesNotExist:
+            return Response({'error': 'Estanque no encontrado o no tiene permisos.'}, status=status.HTTP_404_NOT_FOUND)

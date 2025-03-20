@@ -118,27 +118,30 @@ CORS_ALLOW_HEADERS = [
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "http://localhost:8080"
 ]
 
 CORS_ALLOW_CREDENTIALS = True  # Permitir envío de cookies o credenciales
 
 REST_FRAMEWORK = {
-    
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',  # Permitir el login sin autenticación previa
+        'rest_framework.permissions.IsAuthenticated',  # Requiere autenticación para todas las vistas
     ),
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),  # Duración del token de acceso
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),    # Duración del refresh token
-    'ROTATE_REFRESH_TOKENS': False,
-    'BLACKLIST_AFTER_ROTATION': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),  # Cambia a 1 hora o el tiempo que quieras
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=1),  # Cambia a 1 hora o el tiempo deseado
+    'ROTATE_REFRESH_TOKENS': True,  # Genera un nuevo refresh token cada vez que se usa
+    'BLACKLIST_AFTER_ROTATION': True,  # Invalida los refresh tokens antiguos
     'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
 }
 
 AUTH_USER_MODEL = 'registro.Usuario'

@@ -4,7 +4,6 @@ from rest_framework.permissions import AllowAny
 from .serializers import UsuarioSerializer
 from .models import Usuario
 
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def registro(request):
@@ -13,7 +12,7 @@ def registro(request):
             data = request.data
             serializer = UsuarioSerializer(data=data)
 
-            # Validar el formato de los datos|
+            # Validar el formato de los datos
             if not serializer.is_valid():
                 return JsonResponse({
                     'error': 'Datos inválidos',
@@ -22,17 +21,15 @@ def registro(request):
 
             # Validar que las contraseñas coincidan
             if data['password'] != data['confirmPassword']:
-                return JsonResponse({
-                    'error': 'Las contraseñas no coinciden'
-                }, status=400)
+                return JsonResponse({'error': 'Las contraseñas no coinciden'}, status=400)
 
             # Crear el usuario manualmente
             user = Usuario.objects.create_user(
                 nombre=data['nombre'],
-                celular=data['celular'],
+                celular=data.get('celular', None),  # Evitar error si no envían celular
                 email=data['email'],
                 password=data['password'],
-                estado='Activo'  # Se establece automáticamente
+                estado='activo'  # Cambio de 'Activo' a 'activo'
             )
 
             return JsonResponse({
@@ -41,10 +38,6 @@ def registro(request):
             }, status=201)
 
         except Exception as e:
-            return JsonResponse({
-                'error': str(e)
-            }, status=400)
+            return JsonResponse({'error': str(e)}, status=400)
 
-    return JsonResponse({
-        'error': 'Método no permitido'
-    }, status=405)
+    return JsonResponse({'error': 'Método no permitido'}, status=405)

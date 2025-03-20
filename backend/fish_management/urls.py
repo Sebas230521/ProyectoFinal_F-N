@@ -1,9 +1,9 @@
 from django.urls import path
-from . import views
+from .views import CreateEstanque, UpdateEstanque, ListEstanque, DetailsEstanque
 
 urlpatterns = [
-    path('create_fish/', views.CreateFish.as_view(), name='create_fish'),
-    path('update_fish/', views.UpdateFish.as_view(), name='update_fish'),
-    path('list_fish/', views.List.as_view(), name='delete_fish'),
-    path('details_fish/<int:pk>/', views.Details.as_view(), name='details_fish'),
-]   
+    path('create_estanque/', CreateEstanque.as_view(), name='create_estanque'),
+    path('update_estanque/<int:pk>/', UpdateEstanque.as_view(), name='update_estanque'),
+    path('list_estanque/', ListEstanque.as_view(), name='list_estanque'),
+    path('details_estanque/<int:pk>/', DetailsEstanque.as_view(), name='details_estanque'),
+]

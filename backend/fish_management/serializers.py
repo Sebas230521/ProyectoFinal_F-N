@@ -1,20 +1,41 @@
 from rest_framework import serializers
-from .models import Fish
-from registro.models import Usuario
+from rest_framework.validators import UniqueValidator
+from .models import Estanque
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class EstanqueSerializerInput(serializers.ModelSerializer):
     class Meta:
-        model = Usuario
-        fields = ['id', 'nombre']
+        model = Estanque
+        fields = [
+            # id_user se asigna automáticamente desde request.user
+            'numero_estanque',
+            'tipo_estanque',
+            'profundidad',
+            'ancho',
+            'largo',
+            'especie_pez',
+            'cantidad',
+            'numero_alimento',
+            'fecha_siembra'
+        ]
+        read_only_fields = ['id_user']
+    
+    def create(self, validated_data):
+        # Asignamos id_user a partir del usuario autenticado en el request
+        validated_data['id_user'] = self.context['request'].user
+        return super().create(validated_data)
 
-class FishSerializerInput(serializers.ModelSerializer):
+class EstanqueSerializerOutput(serializers.ModelSerializer):
     class Meta:
-        model = Fish
-        fields = ['id_user','tipo_estanque', 'profundidad_agua', 'largo', 'ancho', 'species', 'cantidad_peces', 'etapa', 'tipo_concentrado', 'temperatura_estanque', 'estado']
-        
-class FishSerializerOutput(serializers.ModelSerializer):
-    id_user = UsuarioSerializer(read_only=True)
-    class Meta:
-        model = Fish
-        fields = ['id_user','tipo_estanque', 'profundidad_agua', 'largo', 'ancho', 'species', 'cantidad_peces', 'etapa', 'tipo_concentrado', 'temperatura_estanque', 'estado']
-        
+        model = Estanque
+        fields = [
+            'id_user',
+            'numero_estanque',
+            'tipo_estanque',
+            'profundidad',
+            'ancho',
+            'largo',
+            'especie_pez',
+            'cantidad',
+            'numero_alimento',
+            'fecha_siembra'
+        ]

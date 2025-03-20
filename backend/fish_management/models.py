@@ -1,21 +1,20 @@
 from django.db import models
 from registro.models import Usuario
 
-# Create your models here.
-
-class Fish(models.Model):
+class Estanque(models.Model):
     id_user = models.ForeignKey(Usuario, on_delete=models.CASCADE)
-    tipo_estanque  = models.CharField(max_length=100)
-    profundidad_agua = models.FloatField()
-    largo = models.FloatField()
+    numero_estanque = models.PositiveIntegerField()
+    tipo_estanque = models.CharField(max_length=100)
+    profundidad = models.FloatField()
     ancho = models.FloatField()
-    species = models.CharField(max_length=100)
-    cantidad_peces = models.IntegerField()
-    etapa = models.CharField(max_length=100)
-    tipo_concentrado = models.CharField(max_length=100)
-    temperatura_estanque = models.CharField(max_length=100)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    estado = models.CharField(max_length=100)
+    largo = models.FloatField()
+    especie_pez = models.CharField(max_length=100)
+    cantidad = models.PositiveIntegerField()
+    numero_alimento = models.PositiveIntegerField()
+    fecha_siembra = models.DateField()
     
     def __str__(self):
-        return self.name
+        return f"Estanque {self.numero_estanque}: {self.especie_pez} ({self.cantidad} peces)"
+    
+    class Meta:
+        unique_together = ('id_user', 'numero_estanque')
