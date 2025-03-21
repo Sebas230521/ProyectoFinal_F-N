@@ -1,7 +1,7 @@
 <template>
         <div class="background-custom min-vh-100" style="padding-bottom: 5rem;">
                 <div class="col-12 d-flex justify-content-center mb-3">
-                <img src="../assets/Fond.png" alt="Logo" class="img-fluid logo-responsive">
+                <img src="../assets/logoMenuLBlanca.png" alt="Logo" class="img-fluid logo-responsive">
                 </div>
                 <div>
                         <PondView />
@@ -37,6 +37,9 @@ max-height: 300px;
 min-width: 100%;
 min-height: 100vh;
 max-width: 100%;
-background-color: #d0e7ff;
+background: #009dff;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom,#0392e6, #F56217);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to bottom,  #1c2a33, #F56217); 
+
 }
 </style>
