@@ -186,6 +186,7 @@ h3 {
 }
 
 button {
+  max-width: 25%;
   font-size: 1.2rem;
   border-radius: 10px;
   font-weight: bold;

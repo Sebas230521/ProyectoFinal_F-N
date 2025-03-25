@@ -1,109 +1,86 @@
 <template>
-  <div class="c min-vh-100 d-flex justify-content-center align-items-center">
-    <div class="container">
-      <div class="row d-flex justify-content-center align-items-center w-100">
-        <div class="card col-lg-6 col-md-8 col-sm-10 p-4 shadow">
-          <form @submit.prevent="submitForm">
-            <div class="text-center">
-              <img src="@/assets/Fond.png" alt="Fish Nexus Logo" class="mb-4 img-fluid" />
-              <h4 class="mb-3">Registro de procedimientos</h4>
-            </div>
+  <div class="container form-container">
+    <h3 class="text-center">Registro de procedimientos</h3>
+    <form @submit.prevent="submitForm" class="needs-validation" novalidate>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <!-- Campo de Nombre del Responsable -->
+          <div class="form-group">
+            <label for="responsable" class="form-label">
+              <i class="bi bi-person-fill"></i> Nombre del responsable
+            </label>
+            <input type="text" class="form-control" v-model="responsable" placeholder="Ingrese el nombre" @input="checkFormValidity" />
+          </div>
+  
+          <!-- Campo de Selección de Estanque -->
+          <div class="form-group">
+            <label for="estanque" class="form-label">
+              <i class="bi bi-hash"></i> Estanque
+            </label>
+            <select v-model="estanque" class="form-select" id="estanque" required @change="checkFormValidity">
+              <option disabled value="">Seleccione</option>
+              <option v-for="pond in ponds" :key="pond.id" :value="pond.id">
+                {{ pond.numero_estanque }} - {{ pond.nombre }}
+              </option>
+            </select>
+          </div>
+  
+          <!-- Campo de Tipo de Concentrado -->
+          <div class="form-group">
+            <label for="tipoConcentrado" class="form-label">
+              <i class="bi bi-card-checklist"></i> Tipo de concentrado
+            </label>
+            <select v-model="tipoConcentrado" class="form-select" @change="checkFormValidity">
+              <option disabled value="">Seleccione</option>
+              <option value="Alevinaje">Alevinaje</option>
+              <option value="Prejuveniles">Prejuveniles</option>
+              <option value="Juveniles">Juveniles</option>
+              <option value="Engorde">Engorde</option>
+            </select>
+          </div>
 
-            <!-- Campo de Nombre del Responsable -->
-            <div class="mb-3">
-              <label for="responsable" class="form-label">
-                <i class="bi bi-person-fill"></i> Nombre del responsable
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="responsable"
-                placeholder="Ingrese el nombre"
-                @input="checkFormValidity"
-              />
-            </div>
+        </div>
+        
+        <div class="col-md-6">
 
-            <!-- Campo de Selección de Estanque -->
-            <div class="mb-3">
-              <label for="estanque" class="form-label">
-                <i class="bi bi-hash"></i> Estanque
-              </label>
-              <select v-model="estanque" class="form-select" id="estanque" required @change="checkFormValidity">
-                <option disabled value="">Seleccione</option>
-                <option v-for="pond in ponds" :key="pond.id" :value="pond.id">
-                  {{ pond.numero_estanque }} - {{ pond.nombre }}
-                </option>
-              </select>
-            </div>
+          <!-- Campo de Nombre del Procedimiento -->
+          <div class="form-group">
+            <label for="nombreProcedimiento" class="form-label">
+              <i class="bi bi-file-earmark-text"></i> Nombre del procedimiento
+            </label>
+            <input type="text" class="form-control" v-model="nombreProcedimiento" placeholder="Nombre del procedimiento" @input="checkFormValidity" />
+          </div>
 
-            <!-- Campo de Tipo de Concentrado -->
-            <div class="mb-3">
-              <label for="tipoConcentrado" class="form-label">
-                <i class="bi bi-card-checklist"></i> Tipo de concentrado
-              </label>
-              <select v-model="tipoConcentrado" class="form-select" @change="checkFormValidity">
-                <option disabled value="">Seleccione</option>
-                <option value="Alevinaje">Alevinaje</option>
-                <option value="Prejuveniles">Prejuveniles</option>
-                <option value="Juveniles">Juveniles</option>
-                <option value="Engorde">Engorde</option>
-              </select>
-            </div>
+          <!-- Campo de Descripción del Procedimiento -->
+          <div class="form-group">
+            <label for="descripcionProcedimiento" class="form-label">
+              <i class="bi bi-file-earmark"></i> Descripción del procedimiento
+            </label>
+            <input class="form-control" v-model="descripcionProcedimiento" placeholder="Descripción" @input="checkFormValidity" />
+          </div>
 
-            <!-- Campo de Nombre del Procedimiento -->
-            <div class="mb-3">
-              <label for="nombreProcedimiento" class="form-label">
-                <i class="bi bi-file-earmark-text"></i> Nombre del procedimiento
-              </label>
-              <input
-                type="text"
-                class="form-control"
-                v-model="nombreProcedimiento"
-                placeholder="Nombre del procedimiento"
-                @input="checkFormValidity"
-              />
-            </div>
-
-            <!-- Campo de Descripción del Procedimiento -->
-            <div class="mb-3">
-              <label for="descripcionProcedimiento" class="form-label">
-                <i class="bi bi-file-earmark"></i> Descripción del procedimiento
-              </label>
-              <textarea
-                class="form-control"
-                v-model="descripcionProcedimiento"
-                placeholder="Descripción"
-                @input="checkFormValidity"
-              ></textarea>
-            </div>
-
-            <!-- Campo de Observaciones -->
-            <div class="mb-3">
-              <label for="observaciones" class="form-label">
-                <i class="bi bi-eye"></i> Observaciones
-              </label>
-              <textarea
-                class="form-control"
-                v-model="observaciones"
-                placeholder="Observaciones"
-                @input="checkFormValidity"
-              ></textarea>
-            </div>
-
-            <!-- Botón de Guardar -->
-            <div class="d-flex justify-content-center align-items-center mb-3">
-              <button type="submit" class="btn btn-success  w-50" style="border-color: #007bff;" :disabled="!isFormValid">
-                  Guardar
-              </button> 
-            </div>
-          </form>
-
-          <!-- Mensaje de Error o Éxito -->
-          <div v-if="message" class="mt-3 alert" :class="messageClass">
-            {{ message }}
+          <!-- Campo de Observaciones -->
+          <div class="form-group">
+            <label for="observaciones" class="form-label">
+              <i class="bi bi-eye"></i> Observaciones
+            </label>
+            <input class="form-control" v-model="observaciones" placeholder="Observaciones" @input="checkFormValidity" />
           </div>
         </div>
       </div>
+       
+
+      <!-- Botón de Guardar -->
+      <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
+        <button type="submit" class="btn btn-danger  w-50">
+            Guardar
+        </button> 
+      </div>
+    </form>
+
+    <!-- Mensaje de Error o Éxito -->
+    <div v-if="message" class="mt-3 alert" :class="messageClass">
+      {{ message }}
     </div>
   </div>
 </template>
@@ -187,16 +164,28 @@
   };
   </script>
   
-  <style scoped>
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .c {
-    background-color: #e3f2fd;
-  }
-  
-  .text-orange {
-    color: #ff9800;
-  }
-  </style>
+<style scoped>
+.container {
+max-width: 60%;
+max-height: 50%;
+background-color: #f0f0f0;
+padding: 2rem;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+margin: auto;
+}
+
+h3 {
+  font-family: 'Arial', sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+</style>
+
+
