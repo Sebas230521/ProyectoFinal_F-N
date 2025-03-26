@@ -58,10 +58,10 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Servidor SMTP
 EMAIL_PORT = 587  # Puerto para TLS
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER='fishnexus5@gmail.com'
-EMAIL_HOST_PASSWORD='vvje psnn bwbb eybt'# Tu contraseña de correo electrónico
+EMAIL_HOST_USER='fishnexus2@gmail.com'
+EMAIL_HOST_PASSWORD='ynjq dmqk vhmd imqc'
 
-DEFAULT_FROM_EMAIL = 'fishnexus5@gmail.com'
+DEFAULT_FROM_EMAIL = 'fishnexus2@gmail.com'
 
 TOKEN_RECUPERACION_EXPIRA_MINUTOS = 10
 
@@ -171,22 +171,22 @@ WSGI_APPLICATION = 'ProyectoFinal_F_N.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-    "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'fish_nexus',  # Nombre de tu base de datos
-#         'USER': 'root',  # Tu usuario de MySQL
-#         'PASSWORD': 'Root',  # No tiene contraseña
-#         'HOST': '127.0.0.1',  # Dirección del servidor MySQL
-#         'PORT': '3306',  # Puerto de MySQL
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#     "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'fish_nexus',  # Nombre de tu base de datos
+        'USER': 'root',  # Tu usuario de MySQL
+        'PASSWORD': 'Root',  
+        'HOST': '127.0.0.1',  # Dirección del servidor MySQL
+        'PORT': '3306',  # Puerto de MySQL
+    }
+}
 
 
 # Password validation

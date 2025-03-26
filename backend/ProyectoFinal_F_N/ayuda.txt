@@ -1,0 +1,9 @@
+mysql -u root -p
+
+password: Root
+
+CREATE DATABASE fish_nexus;
+USE fish_nexus;
+
+python manage.py makemigrations
+python manage.py migrate
