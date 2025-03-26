@@ -1,6 +1,9 @@
 <template>
     <div class="container">
-        <h2 class="text-center mb-4"><strong>Registro de Usuario</strong></h2>
+        <div class="card-register text-center mb-4">
+            <h1>Crea una cuenta</h1>
+            <p><strong>Empieza a disfrutar de nuestros servicios hoy mismo.</strong></p>
+        </div>
         <form @submit.prevent="registro">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-8 col-lg-6">
@@ -32,17 +35,17 @@
                     </div>
                     <div class="form-check mt-2">
                         <input type="checkbox" class="form-check-input" id="tyc" v-model="user.tyc" required>
-                        <label class="form-check-label" for="tyc">Aceptar TyC</label>
+                        <label class="form-check-label" for="tyc"><h6>Terminos y Condiciones</h6></label>
                     </div>
                 </div>
             </div>
 
-            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-2 mt-2">
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-2 mt-3" id="bot">
                 <div class="w-100 w-md-auto" style="max-width: 150px;">
-                    <button type="submit" class="btn btn-custom btn-sm w-100 rounded-pill">Registrar</button>
+                    <button type="submit" class="btn btn-danger btn-sm w-100 rounded-pill p-2">Registrar</button>
                 </div>
                 <div class="w-100 w-md-auto" style="max-width: 150px;">
-                    <button type="button" class="btn btn-outline-primary btn-sm w-100 rounded-pill" @click="goToLogin" :disabled="loading">
+                    <button type="button" class="btn btn-light btn-sm w-100 rounded-pill p-2" @click="goToLogin" :disabled="loading">
                         <span v-if="!loading">Iniciar sesión</span>
                         <i v-if="loading" class="fas fa-spinner fa-spin"></i>
                     </button>
@@ -153,15 +156,17 @@ export default {
 </script>
 
 <style scoped>
-.btn-custom {
+/* .btn-custom {
     background-color: #20b0b5;
     color: white;
-}
+} */
 
-.btn-custom:hover {
+
+
+/* .btn-custom:hover {
     background-color: #ffc107;
     color: black;
-}
+} */
 
 .message-container {
     display: flex;
@@ -177,6 +182,7 @@ export default {
     text-align: center;
     margin: 2px;
 }
+
 </style>
 
 

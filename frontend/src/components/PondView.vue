@@ -2,7 +2,7 @@
   <div class="container mt-4">
       <h3 class="text-center">Añadir nuevo estanque</h3>
       <form @submit.prevent="submitForm">
-          <!-- No Estanque -->
+          <!-- Estanque -->
           <div class="form-group">
               <label for="numeroEstanque">
                   <i class="fas fa-clipboard-list"></i> N° estanque
@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import ApiPond from '../api/ApiPond'; // Asegúrate de que la ruta sea correcta
+import ApiPond from '../api/ApiPond';
 
 export default {
   data() {

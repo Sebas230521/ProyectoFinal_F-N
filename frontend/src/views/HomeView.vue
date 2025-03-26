@@ -39,15 +39,15 @@ export default {
 }
 
 #ct {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(255, 255, 255, 0.703);
   border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(222, 180, 111, 0.962);
+  box-shadow: 0px 4px 10px rgba(253, 156, 0, 0.962);
   padding: 45px;
 
 }
 
 .logo-responsive {
-  width: 280px;
+  width: 220px;
   object-fit: cover;
 }
 </style>

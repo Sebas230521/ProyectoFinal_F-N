@@ -1,6 +1,6 @@
 <template>
         <div>
-                <h2 class="text-center">Formulario para añadir nuevo estanque</h2>
+                <h2 class="text-center"></h2>
                 <PondView />
         </div>
 </template>

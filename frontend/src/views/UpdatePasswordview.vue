@@ -1,4 +1,60 @@
 <template>
+    <UpdatePassword />
+</template>
+
+<script>
+import UpdatePassword from '@/components/UpdatePassword.vue';
+
+export default {
+    components: {
+        UpdatePassword
+    }
+};
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <template>
     <div class="container vh-100 d-flex justify-content-center align-items-center">
         <div class="alert alert-success w-50 text-center">
             <h4>Cambio de contraseña exitoso</h4>
@@ -9,4 +65,4 @@
 
 <script>
     export default {};
-</script>
+</script> -->
