@@ -78,7 +78,7 @@
           <p class="mt-1">+57 3137581122</p>
         </div>
       </div>
-      <p class="mt-2 text-center w-100">© 2024 copyright: FISH-NEXUS</p>
+      <p class="mt-2 text-center w-100">© 2025 copyright: FISH-NEXUS</p>
     </footer>
   </div>
 </template>
