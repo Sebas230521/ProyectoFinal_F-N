@@ -1,20 +1,20 @@
 <template>
   <div class="app-container">
-    <nav class="navbar">
+    <nav class="navbar  ">
       <div class="dropdown">
-        <router-link to="/interes" class="btn btn-outline-secondary btn-sm">?</router-link>
+        <router-link to="/interes" class="btn btn-outline-secondary btn-sm">? Ayuda</router-link>
       </div>
 
       <!-- Botón de usuario con menú desplegable -->
       <div class="dropdown">
-        <button
-          class="btn btn-outline-secondary rounded-circle user-initial"
-          type="button"
-          @click="toggleDropdown"
-        >
-          <span v-if="userInitial">{{ userInitial }}</span>
-          <i v-else class="bi bi-person-circle"></i>
-        </button>
+        <button 
+              class="btn btn-outline-secondary rounded-circle user-initial dropdown-toggle"
+              type="button" 
+              @click="toggleDropdown"
+            >
+              <span v-if="userInitial">{{ userInitial }}</span>
+              <i v-else class="bi bi-person-circle"></i>
+            </button>
 
         <!-- Menú desplegable -->
         <ul v-if="isDropdownOpen" class="dropdown-menu dropdown-menu-end show">
@@ -23,7 +23,7 @@
         </ul>
       </div>
     </nav>
-
+    
     <main class="content">
       <div class="card-container">
         <div class="card shadow-sm text-center semi-transparent-card">
@@ -160,14 +160,14 @@ export default {
 
 
 <style scoped>
-html, body, #app {
+/* html, body, #app {
   height: 100vh;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
+} */
 
 .app-container {
   display: flex;
@@ -207,8 +207,8 @@ html, body, #app {
 }
 
 .navbar {
-  background: #121212;
-  color: white;
+  background: #201e1e;
+  color: rgb(255, 253, 253);
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -223,7 +223,7 @@ html, body, #app {
 
 .container-fluid {
   background: #121212;
-  color: white;
+  color: rgb(241, 241, 241);
 }
 
 .card-container {
@@ -245,7 +245,7 @@ html, body, #app {
 .btn {
   background-color: rgb(212, 101, 26);
   margin-bottom: 3px;
-  color: black;
+  color: rgb(255, 247, 247);
   border: 2px;
 }
 
@@ -289,8 +289,8 @@ html, body, #app {
 }
 </style>
 
-
-<!-- <template>
+<!-- 
+<template>
   <div class="app-container">
     <nav class="navbar">
       <div class="dropdown">

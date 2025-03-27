@@ -2,7 +2,7 @@
     <section class="contai">
         <div class="form-content">
             <div class="d-flex justify-content-center align-items-center mt-4">
-                <img src="@/assets/Fond.png" alt="logo" class="rounded-circle logo">
+                <img src="@/assets/Fond.png" alt="logo" class="logo">
             </div>
             <form class="text-center" @submit.prevent="login">
                 <div class="input-group">
@@ -111,13 +111,14 @@ export default {
 
 
 <style scoped>
-/* Estilos para el componente */
+
 .form-content {
     width: 100%;
     max-width: 380px;
-    background-color: rgba(247, 152, 0, 0.401);
     padding: 50px 60px 80px;
     border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.703);
+    box-shadow: 0px 4px 10px rgba(253, 156, 0, 0.962);
 }
 
 .input-field {
@@ -152,10 +153,12 @@ form p {
 }
 
 form p a {
-    text-shadow: 0px 0px 5px rgb(12, 6, 6);
+    text-shadow: 0px 0px 5px rgb(255, 255, 255);
     font-weight: bolder;
-    color: #ffffff;
-    margin-left: 14px;
+    color: #0a0a0a;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .logo {
