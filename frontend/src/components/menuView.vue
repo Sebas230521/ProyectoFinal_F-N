@@ -127,6 +127,14 @@ export default {
       }
     };
 
+    const goToNuevoEstanque = () => {
+      router.push('/nuevo-estanque');
+    };
+
+    const goToProcedimientos = () => {
+      router.push('/register-procedures');
+    };
+
     const toggleDropdown = () => {
       isDropdownOpen.value = !isDropdownOpen.value;
     };
@@ -139,6 +147,8 @@ export default {
     return {
       isDarkMode,
       toggleMode,
+      goToNuevoEstanque,
+      goToProcedimientos,
       userInitial,
       isDropdownOpen,
       toggleDropdown,
