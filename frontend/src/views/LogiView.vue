@@ -24,7 +24,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-shadow: 0px 0px 5px rgb(9, 0, 0);
+  /* text-shadow: 0px 0px 5px rgb(9, 0, 0); */
 }
 
 
