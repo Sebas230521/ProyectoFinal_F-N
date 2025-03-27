@@ -24,24 +24,24 @@
               </option>
             </select>
           </div>
-  
-          <!-- Campo de Tipo de Concentrado -->
-          <div class="form-group">
-            <label for="tipoConcentrado" class="form-label">
-              <i class="bi bi-card-checklist"></i> Tipo de concentrado
-            </label>
-            <select v-model="tipoConcentrado" class="form-select" @change="checkFormValidity">
-              <option disabled value="">Seleccione</option>
-              <option value="Alevinaje">Alevinaje</option>
-              <option value="Prejuveniles">Prejuveniles</option>
-              <option value="Juveniles">Juveniles</option>
-              <option value="Engorde">Engorde</option>
-            </select>
-          </div>
 
+          <!-- Campo de Observaciones -->
+          <div class="form-group">
+            <label for="observaciones" class="form-label">
+              <i class="bi bi-eye"></i> Observaciones en el estanque
+            </label>
+            <input class="form-control" v-model="observaciones" placeholder="Observaciones" @input="checkFormValidity" />
+          </div>
         </div>
         
         <div class="col-md-6">
+          <!-- Campo de Descripción del Procedimiento -->
+          <div class="form-group">
+            <label for="descripcionProcedimiento" class="form-label">
+              <i class="bi bi-file-earmark"></i> Descripción del procedimiento
+            </label>
+            <input class="form-control" v-model="descripcionProcedimiento" placeholder="Descripción" @input="checkFormValidity" />
+          </div>
 
           <!-- Campo de Nombre del Procedimiento -->
           <div class="form-group">
@@ -51,30 +51,37 @@
             <input type="text" class="form-control" v-model="nombreProcedimiento" placeholder="Nombre del procedimiento" @input="checkFormValidity" />
           </div>
 
-          <!-- Campo de Descripción del Procedimiento -->
-          <div class="form-group">
-            <label for="descripcionProcedimiento" class="form-label">
-              <i class="bi bi-file-earmark"></i> Descripción del procedimiento
+          <!-- Mostrar si el nombre del procedimiento es "comida" -->
+          <div class="form-group" v-if="nombreProcedimiento.toLowerCase() === 'comida'">
+            <label for="tipoConcentrado" class="form-label">
+              <i class="bi bi-card-checklist"></i> Tipo de concentrado
             </label>
-            <input class="form-control" v-model="descripcionProcedimiento" placeholder="Descripción" @input="checkFormValidity" />
+            <select v-model="tipoConcentrado" class="form-select" @change="checkFormValidity">
+              <option disabled value="">Seleccione</option>
+              <option value="Alevinaje">Alevinaje 45%</option>
+              <option value="PreJuveniles">PreJuveniles 38%</option>
+              <option value="Juveniles">Juveniles 34%</option>
+              <option value="PreEngorde">PreEngorde 30%</option>
+              <option value="Engorde">Engorde 24%</option>
+            </select>
           </div>
 
-          <!-- Campo de Observaciones -->
-          <div class="form-group">
-            <label for="observaciones" class="form-label">
-              <i class="bi bi-eye"></i> Observaciones
+          <!-- Mostrar si el nombre del procedimiento NO es "comida" -->
+          <div class="form-group" v-else>
+            <label for="otroProcedimiento" class="form-label">
+              <i class="bi bi-file-earmark-text"></i> Otro tipo de procedimiento
             </label>
-            <input class="form-control" v-model="observaciones" placeholder="Observaciones" @input="checkFormValidity" />
+            <input type="text" class="form-control" v-model="otroProcedimiento" placeholder="Escribe otro tipo de procedimiento" @input="checkFormValidity" />
           </div>
+
+
+
         </div>
       </div>
-       
 
-      <!-- Botón de Guardar -->
-      <div class="d-flex justify-content-center align-items-center mt-3 mb-3">
-        <button type="submit" class="btn btn-danger  w-50">
-            Guardar
-        </button> 
+      <!-- Botón Guardar -->
+      <div class="d-flex justify-content-center align-items-center mt-2">
+        <button type="submit" class="btn btn-danger w-50">Guardar</button>
       </div>
     </form>
 
@@ -167,7 +174,7 @@
 <style scoped>
 .container {
 max-width: 60%;
-max-height: 50%;
+max-height: 40%;
 background-color: #f0f0f0;
 padding: 2rem;
 border-radius: 8px;
@@ -184,6 +191,10 @@ h3 {
 
 .form-label {
   font-size: 1.2rem;
+  font-weight: bold;
+}
+
+i {
   font-weight: bold;
 }
 </style>
