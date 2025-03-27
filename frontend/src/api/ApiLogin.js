@@ -17,7 +17,7 @@ export async function loginUser(email, password) {
         }
 
         return response.data;
-    } catch (error) {
+    } catch (error) {  //catch permite registrar errores y realizar limpiezas especiales. 
         console.error('Error en el inicio de sesión:', error.response?.data || error.message);
         throw error;
     }

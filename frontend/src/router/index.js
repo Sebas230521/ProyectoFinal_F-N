@@ -20,15 +20,18 @@ const routes = [
     component: HomeView
   },
   {
-    path: '/reset-password',
-    name: 'resetPassword',
-    component: () => import(/* webpackChunkName: "resetPassword" */ '../views/ResetPasswordView.vue')
-  },
-  {
-    path: '/update-password',
+    path: '/ResetPassword',
+    name: 'ResetPassword',
+    component: () => import(/* webpackChunkName: "ResetPassword" */ '../views/ResetPasswordView.vue'),
+    props: route => ({ token: route.query.token }) // Captura el token desde la URL
+},
+{
+    path: '/updatepassword/:token?', // Se permite recibir un token opcional en la URL
     name: 'updatePassword',
-    component: () => import(/* webpackChunkName: "updatePassword" */ '../views/UpdatePasswordview.vue')
-  },
+    component: () => import(/* webpackChunkName: "updatePassword" */ '../views/UpdatePasswordview.vue'),
+    props: route => ({ token: route.params.token }) // Pasa el token como prop si está en la URL
+},
+  
   {
     path: '/menu',
     name: 'menu',

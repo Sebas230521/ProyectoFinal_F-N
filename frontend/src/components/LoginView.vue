@@ -23,14 +23,15 @@
 
                 <div class="row g-2">
                     <div class="col-12 col-md-6">
-                        <button type="submit" class="btn btn-outline-danger w-100 rounded-pill" :disabled="loading">
+                        <button type="submit" class="btn btn-danger w-100 rounded-pill"  :disabled="loading">
                             <span v-if="!loading">Iniciar sesión</span>
                             <i v-if="loading" class="fas fa-spinner fa-spin"></i>
                         </button>
                     </div>
                     <div class="col-12 col-md-6">
-                        <button type="button" class="btn btn-outline-info w-100 rounded-pill" @click="goToRegister">
-                            Registro
+                        <button type="button" class="btn btn-light w-100 rounded-pill" :disabled="loadingRegister" @click="goToRegister">
+                            <span v-if="!loadingRegister">Registro</span>
+                            <i v-if="loadingRegister" class="fas fa-spinner fa-spin"></i>
                         </button>
                     </div>
                 </div>
@@ -38,14 +39,20 @@
                 <div id="messageBox">
                     <p v-if="errorMessage" class="text-danger">{{ errorMessage }}</p>
                 </div>
-                <p class="m-2">Olvidaste tu contraseña <a href="#">click aquí</a></p>
+                <!--enviará el email como un parámetro en la URL-->
+                <!--componente ResetPassword podrá capturarlo con this.$route.query.email.-->
+                <p class="p-4">
+                    <router-link :to="{ path: '/ResetPassword', query: { email: email } }">
+                    ¿Has olvidado la contraseña?
+                    </router-link>
+                </p>
             </form>
         </div>
     </section>
 </template>
 
 <script>
-import { loginUser } from '../api/ApiLogin'; // Importamos la función para iniciar sesión
+import { loginUser } from '../api/ApiLogin'; // Importamos la función para iniciar sesión 
 
 export default {
     name: 'LoginView',
@@ -55,6 +62,7 @@ export default {
             password: '',
             showPassword: false,
             loading: false, 
+            loadingRegister: false, // Estado para el botón de registro
             errorMessage: ''
         };
     },
@@ -84,7 +92,18 @@ export default {
             }
         },
         goToRegister() {
-            this.$router.push('/registro');  // Redirige al formulario de registro
+            this.loadingRegister = true; // Activa la animación del botón de registro
+            setTimeout(() => {
+                this.loadingRegister = false;
+                this.$router.push('/home'); // Redirige después de la animación
+            }, 1500);
+        },
+        goToLogin(){
+            this.loading = true; // Activa la animación de inicio de sesión
+            setTimeout(() =>{
+                this.loading = false;
+                this.$router.push('/Login'); 
+            }, 1500);
         }
     }
 };
@@ -92,6 +111,7 @@ export default {
 
 
 <style scoped>
+/* Estilos para el componente */
 .form-content {
     width: 100%;
     max-width: 380px;
@@ -125,16 +145,16 @@ export default {
 }
 
 form p {
-    color: #ffff;
+    color: #ffffff;
     text-align: left;
     font-size: 13px;
     padding: 2px;
 }
 
 form p a {
-    text-shadow: 0px 0px 5px rgb(255, 255, 255);
+    text-shadow: 0px 0px 5px rgb(12, 6, 6);
     font-weight: bolder;
-    color: #080808;
+    color: #ffffff;
     margin-left: 14px;
 }
 

@@ -4,11 +4,11 @@ export default {
   async createEstanque(data) {
     const token = localStorage.getItem('access_token');
     if (!token) {
-      throw new Error("No hay token de acceso almacenado");
+      throw new Error("No hay token de acceso almacenado"); // throw para lanzar excepciones si no se encuentra el token
     }
     try {
       const response = await api.post('fish_api/create_estanque/', data, {
-        headers: { Authorization: `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` } //envia un encabezado http..... //se envia en los encabezados http para autorizar peticiones a recursos protegidos de una API.
       });
       return response.data;
     } catch (error) {
@@ -20,13 +20,55 @@ export default {
       throw error;
     }
   },
-  updateEstanque(pk, data) {
-    return api.patch(`fish_api/update_estanque/${pk}/`, data);
+  async updateEstanque(pk, data) {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      throw new Error("No hay token de acceso almacenado");
+    }
+    try {
+      const response = await api.patch(`fish_api/update_estanque/${pk}/`, data, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.error("Token no válido o expirado.");
+      }
+      throw error;
+    }
   },
-  listEstanques() {
-    return api.get('fish_api/list_estanque/');
+  async listEstanques() {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      throw new Error("No hay token de acceso almacenado");
+    }
+    try {
+      const response = await api.get('fish_api/list_estanque/', {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.error("Token no válido o expirado.");
+      }
+      throw error;
+    }
   },
-  detailsEstanque(pk) {
-    return api.get(`fish_api/details_estanque/${pk}/`);
+  async detailsEstanque(pk) {
+    const token = localStorage.getItem('access_token');
+    if (!token) {
+      throw new Error("No hay token de acceso almacenado");
+    }
+    try {
+      const response = await api.get(`fish_api/details_estanque/${pk}/`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      return response.data;
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        console.error("Token no válido o expirado.");
+      }
+      throw error;
+    }
   }
 };
