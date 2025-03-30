@@ -1,5 +1,8 @@
 <template>
-    <UpdatePassword />
+    <div id="container">
+
+        <UpdatePassword />
+    </div>
 </template>
 
 <script>
@@ -13,7 +16,11 @@ export default {
 </script>
 
 
-
+<style scoped>
+#container{
+    background: linear-gradient(to bottom, #eee0c7, #dacfc6); 
+}
+</style>
 
 
 

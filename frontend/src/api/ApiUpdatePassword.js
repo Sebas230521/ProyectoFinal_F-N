@@ -14,7 +14,7 @@ export async function restablecerContraseña(newPassword, token) {
             'recover_password/restablecer/', 
             { 
                 nueva_contraseña: newPassword, 
-                confirmar_contraseña: newPassword, // ← Ahora enviamos también confirmar_contraseña
+                confirmar_contraseña: newPassword, // Ahora enviamos también confirmar_contraseña
                 token: token 
             }
         );

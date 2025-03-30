@@ -1,5 +1,5 @@
 <template>
-        <div class="container-fluid background-custom min-vh-100 d-flex flex-column align-items-start">
+        <div class="container-fluid background-custom max-vh-100 d-flex flex-column align-items-start">
                 <!-- Botones de "Salir" y "Ayuda" -->
                 <div class="w-100 d-flex justify-content-between align-items-center mt-3 p-2">
                         <button class="btn btn-danger" @click="goToMenu">
@@ -76,7 +76,7 @@ export default {
 <style scoped>
 .background-custom {
 padding-top: -2rem;
-padding-bottom: 3rem;
+
 background: linear-gradient(to bottom, #033450, #F56217);
 }
 

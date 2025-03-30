@@ -1,11 +1,11 @@
 <template>
   <div class="c d-flex align-items-center justify-content-center">
-    <div class="container " id="ct">
+    <div id="ct">
       <div class="row align-items-center">
-        <div class="col-12 col-md-6 d-flex justify-content-center mb-3">
+        <div class="col-12 col-md-6  d-flex justify-content-center mb-3">
           <img src="../assets/Fond.png" alt="Logo" class="logo-responsive">
         </div>
-        <div class="col-12 col-md-6 ">
+        <div class=" col-md-6 ">
           <RegistView/>
         </div>
       </div>
@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 .c {
-  background-image: url(../assets/Fondo-Registrar.jpg);
+  background-image: url(../assets/fondo_l.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -39,15 +39,15 @@ export default {
 }
 
 #ct {
-  background-color: rgba(255, 255, 255, 0.703);
-  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.575);
+  border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(253, 156, 0, 0.962);
-  padding: 45px;
+  padding: 30px;
 
 }
 
 .logo-responsive {
-  width: 220px;
+  width: 240px;
   object-fit: cover;
 }
 </style>

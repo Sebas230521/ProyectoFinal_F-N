@@ -3,13 +3,13 @@
         <div class="row d-flex justify-content-center align-items-center w-100">
             <div class="card col-lg-6 col-md-8 col-sm-10 p-4 shadow">
                 <form @submit.prevent="submitForm">
-                    <label for="email" class="mt-3 d-flex justify-content-center align-items-center form-label">
+                    <label for="email" class="mt-3 d-flex justify-content-center align-items-center form-label fs-2 ">
                         Correo Electronico
                     </label>
-                    <div class="d-flex justify-content-center align-items-center mb-3">
+                    <div class="d-flex justify-content-center align-items-center mb-3 ">
                         <input 
                             type="email" 
-                            class="w-50 form-control" 
+                            class="w-50 form-control rounded-pill overflow-hidden" 
                             v-model="email" 
                             placeholder="Ingrese el correo electrónico"
                             required
@@ -26,11 +26,11 @@
                         {{ serverMessage }}
                     </div>
 
-                    <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-center mt-4">
-                        <button type="button" @click="goBack" class="btn btn-danger">
+                    <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-center mt-4 ">
+                        <button type="button" @click="goBack" class="btn btn-danger rounded-pill overflow-hidden">
                             <i class="bi bi-arrow-left-circle"></i> Atrás
                         </button>
-                        <button type="submit" class="btn btn-success" :disabled="loading">
+                        <button type="submit" class="btn btn-success rounded-pill overflow-hidden" :disabled="loading">
                             <span v-if="loading">Enviando...</span>
                             <span v-else>Recuperar contraseña</span>
                         </button>
@@ -47,7 +47,7 @@ import { recoveryrequest } from '../api/ApiPasswordReset.js';
 export default {
     data() {
         return {
-            email: this.$route.query.email || '', 
+            email: this.$route.query.email || '', //para buscar y seleccionar elementos en una página web
             showEmailError: false,
             loading: false, 
             serverMessage: '', 
@@ -55,7 +55,7 @@ export default {
         };
     },
     watch: {
-        '$route.query.email'(newEmail) {
+        '$route.query.email'(newEmail) { 
             this.email = newEmail || '';
         }
     },
@@ -91,3 +91,12 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.card {
+    padding: 50px 60px 80px;
+    border-radius: 10px;
+    background-color: rgba(233, 224, 217, 0.871);
+    box-shadow: 0px 4px 10px rgba(253, 156, 0, 0.962);
+}
+</style>

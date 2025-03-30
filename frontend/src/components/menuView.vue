@@ -1,12 +1,15 @@
 <template>
   <div class="app-container">
-    <nav class="navbar  ">
+
+    <nav class="navbar">
       <div class="dropdown">
-        <router-link to="/interes" class="btn btn-outline-secondary btn-sm">? Ayuda</router-link>
+        <button class="btn-help btn btn-Secondary" @click="showHelp">
+          <i class="bi bi-question-circle"></i> Ayuda
+        </button>
       </div>
 
-      <!-- Botón de usuario con menú desplegable -->
-      <div class="dropdown">
+<!-- Botón de usuario con menú desplegable -->
+<div class="dropdown"> <!--desde aqui iba para la inicial del usuario-->
         <button 
               class="btn btn-outline-secondary rounded-circle user-initial dropdown-toggle"
               type="button" 
@@ -19,11 +22,12 @@
         <!-- Menú desplegable -->
         <ul v-if="isDropdownOpen" class="dropdown-menu dropdown-menu-end show">
           <!--<li><button @click="toggleMode" class="dropdown-item">Tema</button></li>-->
-          <li><button @click="logout" class="dropdown-item text-danger">Cerrar Sesión</button></li>
+          <li><button @click="logout" class="dropdown-item text-danger">Salir</button></li>
         </ul>
       </div>
+
     </nav>
-    
+
     <main class="content">
       <div class="card-container">
         <div class="card shadow-sm text-center semi-transparent-card">
@@ -42,7 +46,7 @@
             </div>
             <div class="d-flex align-items-center gap-3 w-75">
               <i class="bi bi-bar-chart fs-5"></i>
-              <button class="btn btn-outline-secondary w-100">Información</button>
+              <button @click="goToInformacion" class="btn btn-outline-secondary w-100">Información</button>
             </div>
           </div>
         </div>
@@ -83,79 +87,167 @@
           <p class="mt-1">+57 3137581122</p>
         </div>
       </div>
-      <p class="mt-2 text-center w-100">© 2024 copyright: FISH-NEXUS</p>
+      <p class="mt-2 text-center w-100">© 2025 copyright: FISH-NEXUS</p>
     </footer>
+    <!-- MODAL DE AYUDA -->
+      <div v-if="isHelpModalOpen" class="modal-overlay" @click.self="closeHelp">
+        <div class="modal-content">
+          <!-- Botón de cierre "X" -->
+          <button class="close-button" @click="closeHelp">✖</button>
+
+          <!-- Encabezado -->
+          <h2 class="modal-title">¿Qué hace este Menú?</h2>
+          <p>Aquí encontrarás información para navegar en la web que hemos diseñado para tu gestion en los lagos.</p>
+          <p>Tenemos 3 opciones:</p>
+
+          <!-- Contenido en lista -->
+          <ul class="modal-list">
+            <li><strong>Opción 1: Nuevo Estanque</strong> <br> Permite crear un nuevo estanque y administrarlo fácilmente.</li>
+            <li><strong>Opción 2: Procedimientos</strong> <br> Consulta y administra los procedimientos de tus estanques.</li>
+            <li><strong>Opción 3: Información</strong> <br> Visualiza estadísticas y datos sobre tu actividad.</li>
+            <li><strong>Icono de perfil</strong> <br> Al hacer click en el icono puedes cerrar sesion en nuestra web que te redigirá al login.</li>
+          </ul>
+
+          <!-- Mensaje final -->
+          <div class="modal-footer">
+            Una vez revisadas las opciones, puedes cerrar esta ventana.
+          </div>
+        </div>
+      </div>
+
+
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
-
-export default {
-  name: "MenuView",
-  setup() {
-    const router = useRouter();
-    const isDarkMode = ref(false);
-    const userInitial = ref(null);
-    const isDropdownOpen = ref(false);
-
-    onMounted(() => {
-      const savedMode = localStorage.getItem("darkMode");
-      if (savedMode !== null) {
-        isDarkMode.value = JSON.parse(savedMode);
-      }
-      updateBodyClass();
-
-      const userName = localStorage.getItem("userName") || "Usuario";
-      if (userName) {
+  import { useRouter } from "vue-router";
+  
+  export default {
+    name: "MenuView",
+    setup() {
+      const router = useRouter();
+      const userInitial = ref(null);
+      const isDropdownOpen = ref(false);
+      const isHelpModalOpen = ref(false); // Estado del modal de ayuda
+  
+      onMounted(() => {
+        const userName = localStorage.getItem("userName") || "Usuario";
         userInitial.value = userName.charAt(0).toUpperCase();
-      }
-    });
-
-    const toggleMode = () => {
-      isDarkMode.value = !isDarkMode.value;
-      localStorage.setItem("darkMode", JSON.stringify(isDarkMode.value));
-      updateBodyClass();
-    };
-
-    const updateBodyClass = () => {
-      if (isDarkMode.value) {
-        document.body.classList.add("bg-dark", "text-white");
-      } else {
-        document.body.classList.remove("bg-dark", "text-white");
-      }
-    };
-
-    const goToNuevoEstanque = () => {
+      });
+      
+      const goToNuevoEstanque = () => {
       router.push('/nuevo-estanque');
-    };
+      };
 
-    const goToProcedimientos = () => {
+      const goToProcedimientos = () => {
       router.push('/register-procedures');
+      };
+
+      const goToInformacion = () => {
+      router.push('/informacion');
     };
 
-    const toggleDropdown = () => {
-      isDropdownOpen.value = !isDropdownOpen.value;
-    };
 
-    const logout = () => {
-      localStorage.removeItem("userName");
-      router.push("/login"); // Redirigir a la página de login
-    };
+      const toggleDropdown = () => {
+        isDropdownOpen.value = !isDropdownOpen.value;
+      };
+  
+      const logout = () => {
+        localStorage.removeItem("userName");
+        router.push("/login");
+      };
+  
+      const showHelp = () => {
+        isHelpModalOpen.value = true;
+      };
+  
+      const closeHelp = () => {
+        isHelpModalOpen.value = false;
+      };
+  
+      return {
+        userInitial,
+        isDropdownOpen,
+        toggleDropdown,
+        goToNuevoEstanque,
+        goToProcedimientos,
+        goToInformacion,
+        logout,
+        isHelpModalOpen,
+        showHelp,
+        closeHelp,
+      };
+    },
+  };
 
-    return {
-      isDarkMode,
-      toggleMode,
-      goToNuevoEstanque,
-      goToProcedimientos,
-      userInitial,
-      isDropdownOpen,
-      toggleDropdown,
-      logout
-    };
-  },
-};
+// import { ref, onMounted } from "vue";
+// import { useRouter } from "vue-router";
+
+// export default {
+//   name: "MenuView",
+//   setup() {
+//     const router = useRouter();
+//     const isDarkMode = ref(false);
+//     const userInitial = ref(null);
+//     const isDropdownOpen = ref(false);
+
+//     onMounted(() => {
+//       const savedMode = localStorage.getItem("darkMode");
+//       if (savedMode !== null) {
+//         isDarkMode.value = JSON.parse(savedMode);
+//       }
+//       updateBodyClass();
+
+//       const userName = localStorage.getItem("userName") || "Usuario";
+//       if (userName) {
+//         userInitial.value = userName.charAt(0).toUpperCase();
+//       }
+//     });
+
+//     const toggleMode = () => {
+//       isDarkMode.value = !isDarkMode.value;
+//       localStorage.setItem("darkMode", JSON.stringify(isDarkMode.value));
+//       updateBodyClass();
+//     };
+
+//     const updateBodyClass = () => {
+//       if (isDarkMode.value) {
+//         document.body.classList.add("bg-dark", "text-white");
+//       } else {
+//         document.body.classList.remove("bg-dark", "text-white");
+//       }
+//     };
+
+//     const goToNuevoEstanque = () => {
+//       router.push('/nuevo-estanque');
+//     };
+
+//     const goToProcedimientos = () => {
+//       router.push('/register-procedures');
+//     };
+
+//     const toggleDropdown = () => {
+//       isDropdownOpen.value = !isDropdownOpen.value;
+//     };
+
+//     const logout = () => {
+//       localStorage.removeItem("userName");
+//       router.push("/login"); // Redirigir a la página de login
+//     };
+
+//     return {
+//       isDarkMode,
+//       toggleMode,
+//       goToNuevoEstanque,
+//       goToProcedimientos,
+//       userInitial,
+//       isDropdownOpen,
+//       toggleDropdown,
+//       logout
+//     };
+//   },
+// };
 </script>
 
 
@@ -168,7 +260,7 @@ export default {
   flex-direction: column;
   overflow: hidden;
 } */
-
+ 
 .app-container {
   display: flex;
   flex-direction: column;
@@ -286,6 +378,74 @@ export default {
 
 .text-danger {
   color: red;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  text-align: left;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 5px;
+}
+
+.modal-list {
+  padding-left: 20px;
+}
+
+.modal-list li {
+  margin-bottom: 8px;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+.close-button:hover {
+  color: #ff5733;
+}
+
+.modal-footer {
+  background: #ff5733;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 15px;
 }
 </style>
 
@@ -517,24 +677,3 @@ html, body, #app {
 
 
  -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

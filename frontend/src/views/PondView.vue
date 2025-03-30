@@ -79,7 +79,7 @@ export default {
 <style scoped>
 .background-custom {
 padding-top: -2rem;
-padding-bottom: 3rem;
+
 background: linear-gradient(to bottom, #033450, #F56217);
 }
 
@@ -135,8 +135,8 @@ justify-content: center;
 
 .container_info {
         padding: 10px 10px 0px 10px;
-border-radius: 10px;
-background-color: #df5814;
+        border-radius: 10px;
+        background-color: #df5814;
 }
 
 .text-center {

@@ -19,8 +19,9 @@
             </label>
             <select v-model="estanque" class="form-select" id="estanque" required @change="checkFormValidity">
               <option disabled value="">Seleccione</option>
-              <option v-for="pond in ponds" :key="pond.id" :value="pond.id">
-                {{ pond.numero_estanque }} - {{ pond.nombre }}
+              <!-- Usamos pond.numero_estanque como identificador -->
+              <option v-for="pond in ponds" :key="pond.numero_estanque" :value="pond.id_user">
+                {{ pond.numero_estanque }} - {{ pond.tipo_estanque }}
               </option>
             </select>
           </div>
@@ -58,11 +59,10 @@
             </label>
             <select v-model="tipoConcentrado" class="form-select" @change="checkFormValidity">
               <option disabled value="">Seleccione</option>
-              <option value="Alevinaje">Alevinaje 45%</option>
-              <option value="PreJuveniles">PreJuveniles 38%</option>
-              <option value="Juveniles">Juveniles 34%</option>
-              <option value="PreEngorde">PreEngorde 30%</option>
-              <option value="Engorde">Engorde 24%</option>
+              <option value="Alevinaje">Alevinaje</option>
+              <option value="Juveniles">Juveniles</option>
+              <option value="Prejuveniles">Prejuveniles</option>
+              <option value="Engorde">Engorde</option>
             </select>
           </div>
 
@@ -194,13 +194,14 @@ export default {
 
 <style scoped>
 .container {
+margin-bottom: 26px;
 max-width: 60%;
 max-height: 30%;
 background-color: #f0f0f0;
 padding: 2rem;
 border-radius: 8px;
 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-margin: auto;
+
 }
 
 h3 {

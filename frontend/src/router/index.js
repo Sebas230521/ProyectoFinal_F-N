@@ -46,6 +46,11 @@ const routes = [
     path: '/register-procedures',
     name: 'registroProcedimiento',
     component: () => import(/* webpackChunkName: "registroProcedimiento" */ '../views/RegisterProceduresView.vue')
+  },
+  {
+    path: '/informacion',
+    name: 'Informacion',
+    component: () => import(/* webpackChunkName: "Informacion" */ '../views/InformationVie.vue')
   }
 ];
 
