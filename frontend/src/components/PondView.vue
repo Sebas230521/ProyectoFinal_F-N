@@ -2,6 +2,13 @@
   <div class="container form-container">
     <h3 class="text-center">Añadir nuevo estanque</h3>
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>
+      <!-- Nombre de la finca -->
+      <div class="d-flex justify-content-center align-items-center mt-3">
+        <div class="w-50 text-center form-group">
+          <label for="nombreFinca" class="form-label">Nombre de la finca</label>
+          <input type="text" v-model="form.nombreFinca" class="form-control" id="nombreFinca" required />
+        </div>
+      </div>
       <div class="row g-3">
         <div class="col-md-4">
           <!-- N° estanque -->
@@ -93,6 +100,7 @@ export default {
   data() {
     return {
       form: {
+        nombreFinca: '', // Nuevo campo
         numeroEstanque: '',
         tipoEstanque: '',
         profundidad: '',
@@ -112,6 +120,7 @@ export default {
       try {
         // Transformamos los datos para que tengan nombres en snake_case
         const transformedData = {
+          nombre_finca: this.form.nombreFinca, // Nuevo campo para utilizar en la API
           numero_estanque: this.form.numeroEstanque,
           tipo_estanque: this.form.tipoEstanque,
           profundidad: this.form.profundidad,
@@ -130,6 +139,7 @@ export default {
 
         // Limpiamos el formulario después de la creación
         this.form = {
+          nombreFinca: '', // Nuevo campo al momento de limpiar el formulario
           numeroEstanque: '',
           tipoEstanque: '',
           profundidad: '',
@@ -157,7 +167,7 @@ export default {
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
+  margin: auto;
 }
 
 h3 {

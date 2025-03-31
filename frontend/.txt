@@ -1,0 +1,29 @@
+TÉRMINOS Y CONDICIONES DE USO
+Última actualización: [Podemos poner la fecha del día de finalizacion]
+
+Bienvenido a Fish-Nexus, una plataforma diseñada para la gestión de estanques y procedimientos acuícolas. Al utilizar este sistema, el administrador acepta los siguientes términos y condiciones.
+
+1️⃣ Uso de la Plataforma
+✔ Acceso exclusivo: Solo el administrador designado tiene permiso para utilizar Fish-Nexus.
+✔ Finalidad: El sistema debe usarse únicamente para la administración de estanques y procedimientos relacionados con la acuicultura.
+✔ Resguardo de credenciales: El administrador es responsable de proteger sus datos de acceso y evitar el uso no autorizado.
+
+2️⃣ Manejo de Datos
+🔹 Privacidad: Toda la información almacenada se maneja internamente y no se comparte con terceros.
+🔹 Precisión: El administrador es responsable de ingresar datos correctos y actualizados en el sistema.
+🔹 Respaldo: Se recomienda realizar copias de seguridad periódicas para evitar la pérdida de información.
+
+3️⃣ Responsabilidades del Administrador
+✔ Mantener la seguridad y confidencialidad de la información en Fish-Nexus.
+✔ No modificar, eliminar o compartir datos de manera indebida.
+✔ Utilizar la plataforma solo para los fines establecidos.
+
+4️⃣ Propiedad Intelectual
+📌 Fish-Nexus y su contenido son propiedad exclusiva de sus desarrolladores.
+📌 No se permite su distribución, copia o modificación sin autorización previa.
+
+5️⃣ Actualizaciones y Soporte
+🔹 Fish-Nexus podrá recibir mejoras y actualizaciones periódicas para optimizar su funcionamiento.
+🔹 En caso de fallas técnicas o consultas, el soporte técnico estará disponible en:
+📩 [Correo de soporte]
+📞 [Número de contacto]
