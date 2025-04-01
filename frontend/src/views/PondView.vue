@@ -10,10 +10,6 @@
                         </button>
                 </div>
 
-                <!-- Contenido principal -->
-                <div class="col-12 d-flex justify-content-center mt-2">
-                        <img src="../assets/logoMenuLBlanca.png" alt="Logo" class="img-fluid logo-responsive">
-                </div>
                 <div class="w-100 px-3 mt-4">
                         <PondView />
                 </div>

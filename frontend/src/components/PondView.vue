@@ -6,7 +6,7 @@
       <div class="d-flex justify-content-center align-items-center mt-3">
         <div class="w-50 text-center form-group">
           <label for="nombreFinca" class="form-label">Nombre de la finca</label>
-          <input type="text" v-model="form.nombreFinca" class="form-control" id="nombreFinca" required />
+          <input type="text" v-model="form.nombreFinca" class="form-control  rounded-pill overflow-hidden" id="nombreFinca" required />
         </div>
       </div>
       <div class="row g-3">
@@ -14,13 +14,13 @@
           <!-- N° estanque -->
           <div class="form-group">
             <label for="numeroEstanque" class="form-label">N° estanque</label>
-            <input type="number" v-model="form.numeroEstanque" class="form-control" id="numeroEstanque" required />
+            <input type="number" v-model="form.numeroEstanque" class="form-control  rounded-pill overflow-hidden" id="numeroEstanque" required />
           </div>
 
           <!-- Tipo de estanque -->
           <div class="form-group">
             <label for="tipoEstanque" class="form-label">Tipo de estanque</label>
-            <select v-model="form.tipoEstanque" class="form-control" id="tipoEstanque" required>
+            <select v-model="form.tipoEstanque" class="form-control  rounded-pill overflow-hidden" id="tipoEstanque" required>
               <option value="Seleccione">Seleccione</option>
               <option value="Geomembrana">Geomembrana</option>
               <option value="Tierra">Tierra</option>
@@ -30,7 +30,7 @@
           <!-- Profundidad -->
           <div class="form-group">
             <label for="profundidad" class="form-label">Profundidad (m)</label>
-            <input type="number" v-model="form.profundidad" class="form-control" id="profundidad" required />
+            <input type="number" v-model="form.profundidad" class="form-control  rounded-pill overflow-hidden" id="profundidad" required />
           </div>
         </div>
 
@@ -38,19 +38,19 @@
           <!-- Ancho -->
           <div class="form-group">
             <label for="ancho" class="form-label">Ancho (m)</label>
-            <input type="number" v-model="form.ancho" class="form-control" id="ancho" required />
+            <input type="number" v-model="form.ancho" class="form-control  rounded-pill overflow-hidden" id="ancho" required />
           </div>
 
           <!-- Largo -->
           <div class="form-group">
             <label for="largo" class="form-label">Largo (m)</label>
-            <input type="number" v-model="form.largo" class="form-control" id="largo" required />
+            <input type="number" v-model="form.largo" class="form-control  rounded-pill overflow-hidden" id="largo" required />
           </div>
 
           <!-- Especie de pez -->
           <div class="form-group">
             <label for="especiePez" class="form-label">Especie de pez</label>
-            <select v-model="form.especiePez" class="form-control" id="especiePez" required>
+            <select v-model="form.especiePez" class="form-control  rounded-pill overflow-hidden" id="especiePez" required>
               <option value="">Seleccione</option>
               <option value="Mojarra Roja">Mojarra Roja</option>
               <option value="Mojarra Negra">Mojarra Negra</option>
@@ -63,26 +63,26 @@
           <!-- Cantidad -->
           <div class="form-group">
             <label for="cantidad" class="form-label">Cantidad de peces</label>
-            <input type="number" v-model="form.cantidad" class="form-control" id="cantidad" required />
+            <input type="number" v-model="form.cantidad" class="form-control  rounded-pill overflow-hidden" id="cantidad" required />
           </div>
 
           <!-- N° alimento -->
           <div class="form-group">
             <label for="numeroAlimento" class="form-label">N° alimento</label>
-            <input type="number" v-model="form.numeroAlimento" class="form-control" id="numeroAlimento" required />
+            <input type="number" v-model="form.numeroAlimento" class="form-control  rounded-pill overflow-hidden" id="numeroAlimento" required />
           </div>
 
           <!-- Fecha de sembrado -->
           <div class="form-group">
             <label for="fechaSiembra" class="form-label">Fecha de sembrado</label>
-            <input type="date" v-model="form.fechaSiembra" class="form-control" id="fechaSiembra" required />
+            <input type="date" v-model="form.fechaSiembra" class="form-control  rounded-pill overflow-hidden" id="fechaSiembra" required />
           </div>
         </div>
       </div>
 
       <!-- Botón Guardar -->
       <div class="d-flex justify-content-center align-items-center mt-3">
-        <button type="submit" class="btn btn-danger w-50">Guardar</button>
+        <button type="submit" class="btn btn-danger w-50  rounded-pill overflow-hidden">Guardar</button>
       </div>
     </form>
 
@@ -120,7 +120,7 @@ export default {
       try {
         // Transformamos los datos para que tengan nombres en snake_case
         const transformedData = {
-          nombre_finca: this.form.nombreFinca, // Nuevo campo para utilizar en la API
+          nombre_finca: this.form.nombreFinca.trim(), // Elimina espacios extra
           numero_estanque: this.form.numeroEstanque,
           tipo_estanque: this.form.tipoEstanque,
           profundidad: this.form.profundidad,
