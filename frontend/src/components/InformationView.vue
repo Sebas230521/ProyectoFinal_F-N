@@ -57,7 +57,7 @@
 body{
     font-family: 'Montserrat', sans-serif;
   font-weight: 800;
-    background-color: #FFF;
+    background-color: #434343;
     color: #00b8de;
 }
 /* ======================== */

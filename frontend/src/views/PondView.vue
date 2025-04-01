@@ -5,8 +5,8 @@
                         <button class="btn btn-danger" @click="goToMenu">
                                 <i class="bi bi-box-arrow-left"></i> Atras
                         </button>
-                        <button class="btn-help btn btn-Secondary" @click="showHelp">
-                                <i class="bi bi-question-circle"></i> Ayuda
+                        <button class="btn btn-secondary" @click="showHelp">
+                                <i class="bi bi-question-circle"></i>
                         </button>
                 </div>
 
@@ -75,8 +75,7 @@ export default {
 <style scoped>
 .background-custom {
 padding-top: -2rem;
-
-background: linear-gradient(to bottom, #033450, #F56217);
+background-color: #434343;
 }
 
 .logo-responsive {
@@ -120,9 +119,6 @@ justify-content: center;
         border-radius: 10px;
 }
 
-.btn-help {
-        background-color: #D9D9D9;
-}
 
 .modal-header {
         display: flex;
@@ -137,5 +133,9 @@ justify-content: center;
 
 .text-center {
         color: #fff;
+}
+
+.btn-help {
+        background-color: #D9D9D9;
 }
 </style>

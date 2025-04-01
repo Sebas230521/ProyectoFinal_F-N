@@ -1,5 +1,25 @@
 <template>
   <div class="container form-container">
+    <!-- Modal -->
+    <div :class="['modal', { 'd-block': mostrarModal }]">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <div class="container_info">
+              <h5 class="text-modal text-center">Sugerencia de peces</h5>
+            </div>
+            <button type="button" class="btn-close" @click="cerrarModal"></button>
+          </div>
+          <div class="modal-body">
+            <p>Basado en las dimensiones del estanque, puedes sembrar aproximadamente <strong>{{ sugerenciaPeces }}</strong> peces.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger w-100" @click="cerrarModal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <h3 class="text-center">Añadir nuevo estanque</h3>
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>
       <!-- Nombre de la finca -->
@@ -27,10 +47,15 @@
             </select>
           </div>
 
-          <!-- Profundidad -->
+          <!-- Especie de pez -->
           <div class="form-group">
-            <label for="profundidad" class="form-label">Profundidad (m)</label>
-            <input type="number" v-model="form.profundidad" class="form-control  rounded-pill overflow-hidden" id="profundidad" required />
+            <label for="especiePez" class="form-label">Especie de pez</label>
+            <select v-model="form.especiePez" class="form-control  rounded-pill overflow-hidden" id="especiePez" required>
+              <option value="">Seleccione</option>
+              <option value="Mojarra Roja">Mojarra Roja</option>
+              <option value="Mojarra Negra">Mojarra Negra</option>
+              <option value="Cachama">Cachama</option>
+            </select>
           </div>
         </div>
 
@@ -47,15 +72,10 @@
             <input type="number" v-model="form.largo" class="form-control  rounded-pill overflow-hidden" id="largo" required />
           </div>
 
-          <!-- Especie de pez -->
+          <!-- Profundidad -->
           <div class="form-group">
-            <label for="especiePez" class="form-label">Especie de pez</label>
-            <select v-model="form.especiePez" class="form-control  rounded-pill overflow-hidden" id="especiePez" required>
-              <option value="">Seleccione</option>
-              <option value="Mojarra Roja">Mojarra Roja</option>
-              <option value="Mojarra Negra">Mojarra Negra</option>
-              <option value="Cachama">Cachama</option>
-            </select>
+            <label for="profundidad" class="form-label">Profundidad (m)</label>
+            <input type="number" v-model="form.profundidad" class="form-control  rounded-pill overflow-hidden" id="profundidad" required />
           </div>
         </div>
 
@@ -112,10 +132,32 @@ export default {
         fechaSiembra: ''
       },
       message: '', // Mensaje de éxito o error
-      messageClass: '' // Clase de estilo para el mensaje
+      messageClass: '', // Clase de estilo para el mensaje
+      mostrarModal: false,
+      sugerenciaPeces: 0
     };
   },
+  watch: {
+    form: {
+      handler(newForm) {
+        const { ancho, largo, profundidad } = newForm;
+        
+        if (ancho > 0 && largo > 0 && profundidad > 0) {
+          this.calcularSugerencia();
+        }
+      },
+      deep: true
+    }
+  },
   methods: {
+    calcularSugerencia() {
+      const volumen = this.form.ancho * this.form.largo * this.form.profundidad;
+      this.sugerenciaPeces = Math.floor(volumen * 5); // Ajusta la fórmula si es necesario
+      this.mostrarModal = true;
+    },
+    cerrarModal() {
+      this.mostrarModal = false;
+    },
     async submitForm() {
       try {
         // Transformamos los datos para que tengan nombres en snake_case
@@ -166,6 +208,7 @@ export default {
   background-color: #f0f0f0;
   padding: 2rem;
   border-radius: 8px;
+  background-color: #f0f0f0c1;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: auto;
 }
@@ -210,4 +253,54 @@ button {
     font-size: 1rem;
   }
 }
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal.d-block {
+  display: flex;
+}
+
+.modal-dialog {
+  max-width: 500px;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.container_info {
+  padding: 10px 10px 0px 10px;
+  border-radius: 10px;
+  background-color: #df5814;
+}
+
+.text-modal {
+  color: #fff;
+}
+
+.btn-close {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 </style>
