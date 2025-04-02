@@ -27,11 +27,11 @@
                                         <div class="modal-body">
                                         <p>Aquí puedes registrar los procedimientos de manera eficiente. Debes completar los siguientes campos:</p>
                                         <ul>
-                                                <li><strong>Nombre del responsable:</strong> Debes escribir el nombre completo de la persona que está realizando el procedimiento.</li>
+                                                <li><strong>Nombre de la finca:</strong> Seleccionar el nombre de la finca que registro en el nuevo estanque.</li>
                                                 <li><strong>Descripción del procedimiento:</strong> Incluir una breve descripción del procedimiento.</li>
-                                                <li><strong>Estanque:</strong> Seleccionar el estanque al cual le está realizando el procedimiento.</li>
-                                                <li><strong>Nombre del procedimiento:</strong> Poner un nombre al procedimiento realizado ya sea alimentación, limpieza, recambio, etc.</li>
-                                                <li><strong>Observaciones en el estanque:</strong> Hacer una breve descripción de qué irregularidad vio en el estanque, tales como peces muertos, agua de coloración muy oscura, desbordamiento del lago, etc.</li>
+                                                <li><strong>Estanque:</strong> Seleccionar el estanque al cual le va a realizar el procedimiento.</li>
+                                                <li><strong>Nombre del procedimiento:</strong> Ingrese el nombre con el cual identifique el procedimiento realizado ya sea alimentación, limpieza, recambio, etc.</li>
+                                                <li><strong>Observaciones en el estanque:</strong> Ingresar una breve descripción de qué irregularidades vio en el estanque, tales como peces muertos, agua de coloración muy oscura, desbordamiento del lago, etc.</li>
                                                 <li><strong>Tipo de concentrado:</strong> Seleccionar el tipo de concentrado que está utilizando el estanque seleccionado en el registro.</li>
                                         </ul>
                                         <div class="container_info d-flex justify-content-center">
@@ -134,5 +134,10 @@ background-color: #df5814;
 
 .text-center {
 color: #fff;
+}
+
+.modal-body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
 }
 </style>

@@ -26,14 +26,15 @@
                                         <div class="modal-body">
                                                 <p>Aquí puedes añadir un nuevo estanque de manera eficiente. Debes completar los siguientes campos:</p>
                                                 <ul>
-                                                        <li><strong>Número del estanque:</strong> Debes ingresar el número de identificación del estanque.</li>
-                                                        <li><strong>Tipo de estanque:</strong> Seleccionar el tipo de estanque según su clasificación (natural, artificial, etc.).</li>
-                                                        <li><strong>Profundidad:</strong> Especificar la profundidad del estanque en metros.</li>
+                                                        <li><strong>Nombre de la finca:</strong> Ingresar el nombre de la finca para especificar en que lugar esta el estanque.</li>
+                                                        <li><strong>Número del estanque:</strong> Ingresar el número de identificación del estanque.</li>
                                                         <li><strong>Ancho:</strong> Ingresar el ancho del estanque en metros.</li>
+                                                        <li><strong>Especie de pez:</strong> Indicar la especie de pez que está siendo sembrada en el estanque(Mojarra roja, Mojarra negra o Cachama).</li>
+                                                        <li><strong>Tipo de estanque:</strong> Seleccionar el tipo de estanque según su clasificación (Geomembrana o Tierra.).</li>
                                                         <li><strong>Largo:</strong> Ingresar el largo del estanque en metros.</li>
-                                                        <li><strong>Especie de pez:</strong> Indicar la especie de pez que está siendo cultivada en el estanque.</li>
-                                                        <li><strong>Cantidad de peces:</strong> Seleccione la cantidad de peces que hay en el estanque.</li>
+                                                        <li><strong>Cantidad de peces:</strong> Seleccione la cantidad de peces que va a sembrar en el estanque.</li>
                                                         <li><strong>Número de alimento:</strong> Ingresar el número o tipo de alimento utilizado en el estanque.</li>
+                                                        <li><strong>Profundidad:</strong> Ingresar la profundidad del estanque en metros.</li>
                                                         <li><strong>Fecha de siembra:</strong> Indicar la fecha en la que se sembraron los peces en el estanque.</li>
                                                 </ul>
                                                 <div class="container_info d-flex justify-content-center">
@@ -137,5 +138,10 @@ justify-content: center;
 
 .btn-help {
         background-color: #D9D9D9;
+}
+
+.modal-body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
 }
 </style>

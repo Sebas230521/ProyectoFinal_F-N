@@ -1,30 +1,61 @@
 <template>
   <div class="container form-container">
-    <!-- Modal -->
-    <div :class="['modal', { 'd-block': mostrarModal }]">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="container_info">
-              <h5 class="text-modal text-center">Sugerencia de peces</h5>
-            </div>
-            <button type="button" class="btn-close" @click="cerrarModal"></button>
-          </div>
-          <div class="modal-body">
-            <p>Basado en las dimensiones del estanque, puedes sembrar aproximadamente <strong>{{ sugerenciaPeces }}</strong> peces.</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-danger w-100" @click="cerrarModal">Cerrar</button>
-          </div>
+    <!-- Modal de Sugerencia de Peces -->
+<div :class="['modal', { 'd-block': mostrarModalSugerencia }]">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" @click="cerrarModalSugerencia"></button>
+        <div class="container_info">
+          <h5 class="text-modal text-center">Sugerencia de peces</h5>
         </div>
       </div>
+      <div class="modal-body">
+        <p>Basado en las dimensiones del estanque, puedes sembrar entre <strong>{{ sugerenciaMin }}</strong> y <strong>{{ sugerenciaMax }}</strong> peces.</p>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- Modal de Advertencia por Exceso -->
+<div :class="['modal', { 'd-block': mostrarModalExceso }]">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" @click="cerrarModalExceso"></button>
+        <div class="container_info">
+          <h5 class="text-modal text-center">⚠️ Advertencia</h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p>Has ingresado una cantidad superior a la recomendada. El máximo recomendado es <strong>{{ sugerenciaMax }}</strong> peces.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Advertencia por Cantidad Insuficiente -->
+<div :class="['modal', { 'd-block': mostrarModalInsuficiente }]">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" @click="cerrarModalInsuficiente"></button>
+        <div class="container_info">
+          <h5 class="text-modal text-center">⚠️ Advertencia</h5>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p>La cantidad ingresada es menor a la recomendada. El mínimo recomendado es <strong>{{ sugerenciaMin }}</strong> peces.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
     <h3 class="text-center">Añadir nuevo estanque</h3>
     <form @submit.prevent="submitForm" class="needs-validation" novalidate>
       <!-- Nombre de la finca -->
       <div class="d-flex justify-content-center align-items-center mt-3">
-        <div class="w-50 text-center form-group">
+        <div class="container-finca text-center form-group">
           <label for="nombreFinca" class="form-label">Nombre de la finca</label>
           <input type="text" v-model="form.nombreFinca" class="form-control  rounded-pill overflow-hidden" id="nombreFinca" required />
         </div>
@@ -37,6 +68,20 @@
             <input type="number" v-model="form.numeroEstanque" class="form-control  rounded-pill overflow-hidden" id="numeroEstanque" required />
           </div>
 
+          <!-- Ancho -->
+          <div class="form-group">
+            <label for="ancho" class="form-label">Ancho (m)</label>
+            <input type="number" v-model="form.ancho" class="form-control rounded-pill overflow-hidden" id="ancho" required />
+          </div>
+
+          <!-- Cantidad -->
+          <div class="form-group">
+            <label for="cantidad" class="form-label">Cantidad de peces</label>
+            <input type="number" v-model="form.cantidad" class="form-control  rounded-pill overflow-hidden" id="cantidad" required />
+          </div>
+        </div>
+
+        <div class="col-md-4">
           <!-- Tipo de estanque -->
           <div class="form-group">
             <label for="tipoEstanque" class="form-label">Tipo de estanque</label>
@@ -47,49 +92,35 @@
             </select>
           </div>
 
-          <!-- Especie de pez -->
-          <div class="form-group">
-            <label for="especiePez" class="form-label">Especie de pez</label>
-            <select v-model="form.especiePez" class="form-control  rounded-pill overflow-hidden" id="especiePez" required>
-              <option value="">Seleccione</option>
-              <option value="Mojarra Roja">Mojarra Roja</option>
-              <option value="Mojarra Negra">Mojarra Negra</option>
-              <option value="Cachama">Cachama</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <!-- Ancho -->
-          <div class="form-group">
-            <label for="ancho" class="form-label">Ancho (m)</label>
-            <input type="number" v-model="form.ancho" class="form-control  rounded-pill overflow-hidden" id="ancho" required />
-          </div>
-
           <!-- Largo -->
           <div class="form-group">
             <label for="largo" class="form-label">Largo (m)</label>
-            <input type="number" v-model="form.largo" class="form-control  rounded-pill overflow-hidden" id="largo" required />
-          </div>
-
-          <!-- Profundidad -->
-          <div class="form-group">
-            <label for="profundidad" class="form-label">Profundidad (m)</label>
-            <input type="number" v-model="form.profundidad" class="form-control  rounded-pill overflow-hidden" id="profundidad" required />
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <!-- Cantidad -->
-          <div class="form-group">
-            <label for="cantidad" class="form-label">Cantidad de peces</label>
-            <input type="number" v-model="form.cantidad" class="form-control  rounded-pill overflow-hidden" id="cantidad" required />
+            <input type="number" v-model="form.largo" class="form-control rounded-pill overflow-hidden" id="largo" required />
           </div>
 
           <!-- N° alimento -->
           <div class="form-group">
             <label for="numeroAlimento" class="form-label">N° alimento</label>
             <input type="number" v-model="form.numeroAlimento" class="form-control  rounded-pill overflow-hidden" id="numeroAlimento" required />
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <!-- Especie de pez -->
+          <div class="form-group">
+            <label for="especiePez" class="form-label">Especie de pez</label>
+            <select v-model="form.especiePez" class="form-control rounded-pill overflow-hidden" id="especiePez" required>
+              <option value="">Seleccione</option>
+              <option value="Mojarra Roja">Mojarra Roja</option>
+              <option value="Mojarra Negra">Mojarra Negra</option>
+              <option value="Cachama">Cachama</option>
+            </select>
+          </div>
+
+          <!-- Profundidad -->
+          <div class="form-group">
+            <label for="profundidad" class="form-label">Profundidad (m)</label>
+            <input type="number" v-model="form.profundidad" class="form-control rounded-pill overflow-hidden" id="profundidad" required />
           </div>
 
           <!-- Fecha de sembrado -->
@@ -133,31 +164,82 @@ export default {
       },
       message: '', // Mensaje de éxito o error
       messageClass: '', // Clase de estilo para el mensaje
-      mostrarModal: false,
-      sugerenciaPeces: 0
+      mostrarModalSugerencia: false, //modal para sugerencias
+      mostrarModalExceso: false, //modal para cantidad mayor a la recomendada
+      mostrarModalInsuficiente: false, //modal para cantidad menor a la recomendada
+      sugerenciaMin: 0, //funcion para calcular la cantidad minima de alimento
+      sugerenciaMax: 0, //funcion para calcular la cantidad maxima de alimento
     };
   },
   watch: {
     form: {
-      handler(newForm) {
-        const { ancho, largo, profundidad } = newForm;
-        
-        if (ancho > 0 && largo > 0 && profundidad > 0) {
-          this.calcularSugerencia();
-        }
+      handler() {
+        this.calcularSugerencia();
+        this.validarCantidad();
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     calcularSugerencia() {
-      const volumen = this.form.ancho * this.form.largo * this.form.profundidad;
-      this.sugerenciaPeces = Math.floor(volumen * 5); // Ajusta la fórmula si es necesario
-      this.mostrarModal = true;
+      const { largo, ancho, profundidad, especiePez } = this.form;
+
+      const l = parseFloat(largo) || 0;
+      const a = parseFloat(ancho) || 0;
+      const p = parseFloat(profundidad) || 0;
+
+      if (!l || !a || !p || !especiePez) {
+        this.mostrarModalSugerencia = false;
+        return;
+      }
+
+      const volumen = l * a * p;
+
+      if (especiePez === 'Cachama') {
+        this.sugerenciaMin = Math.floor(volumen * 10);
+        this.sugerenciaMax = Math.floor(volumen * 20);
+      } else if (especiePez === 'Mojarra Roja' || especiePez === 'Mojarra Negra') {
+        this.sugerenciaMin = Math.floor(volumen * 20);
+        this.sugerenciaMax = Math.floor(volumen * 50);
+      } else {
+        this.sugerenciaMin = 0;
+        this.sugerenciaMax = 0;
+      }
+
+      if (this.sugerenciaMin > 0) {
+        this.mostrarModalSugerencia = true;
+      }
     },
-    cerrarModal() {
-      this.mostrarModal = false;
+    validarCantidad() {
+      const cantidadIngresada = parseInt(this.form.cantidad) || 0;
+
+      if (cantidadIngresada === 0 || this.sugerenciaMin === 0) {
+        this.mostrarModalExceso = false;
+        this.mostrarModalInsuficiente = false;
+        return;
+      }
+
+      if (cantidadIngresada > this.sugerenciaMax) {
+        this.mostrarModalExceso = true;
+        this.mostrarModalInsuficiente = false;
+      } else if (cantidadIngresada < this.sugerenciaMin) {
+        this.mostrarModalInsuficiente = true;
+        this.mostrarModalExceso = false;
+      } else {
+        this.mostrarModalExceso = false;
+        this.mostrarModalInsuficiente = false;
+      }
     },
+    cerrarModalSugerencia() {
+      this.mostrarModalSugerencia = false;
+    },
+    cerrarModalExceso() {
+      this.mostrarModalExceso = false;
+    },
+    cerrarModalInsuficiente() {
+      this.mostrarModalInsuficiente = false;
+    },
+  },
     async submitForm() {
       try {
         // Transformamos los datos para que tengan nombres en snake_case
@@ -197,8 +279,7 @@ export default {
         this.messageClass = 'alert-danger';
       }
     }
-  }
-};
+  };
 </script>
 
 <style scoped>
@@ -295,12 +376,13 @@ button {
   color: #fff;
 }
 
-.btn-close {
-  align-self: flex-end;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+.container-finca {
+  width: 35%;
+}
+
+.modal-body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
 }
 
 </style>
