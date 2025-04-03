@@ -33,10 +33,10 @@
                             <i :class="passwordFieldIcon"></i>
                         </button>
                     </div>
-                    <div class="form-check mt-2">
+                    <!-- <div class="form-check mt-2">
                         <input type="checkbox" class="form-check-input" id="tyc" v-model="user.tyc" required>
                         <label class="form-check-label" for="tyc"><h6>Terminos y Condiciones</h6></label>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 

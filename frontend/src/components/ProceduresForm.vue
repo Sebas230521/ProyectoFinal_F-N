@@ -32,7 +32,7 @@
               required
             >
               <option disabled value="">Seleccione</option>
-              <option v-for="pond in estanquesFiltrados" :key="pond.numero_estanque" :value="pond.numero_estanque">
+              <option v-for="pond in estanquesFiltrados" :key="pond.numero_estanque" :value="pond.id">
                 {{ pond.numero_estanque }} - {{ pond.tipo_estanque }}
               </option>
             </select>
@@ -140,7 +140,7 @@ export default {
     selectedPond() {
       const id = parseInt(this.estanque, 10);
       console.log("mostrar id", this.estanque);
-      return this.ponds.find(p => Number(p.numero_estanque) === id);
+      return this.ponds.find(p => Number(p.id) === id);
     }
   },
   methods: {

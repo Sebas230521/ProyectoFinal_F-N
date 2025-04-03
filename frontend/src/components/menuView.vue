@@ -24,17 +24,17 @@
       <div class="card-container">
         <div class="cards-wrapper">
           <div class="custom-card" @click="goToNuevoEstanque">
-            <img src="" alt="Nuevo Estanque" class="card-img">
+            <img src="../assets/des.jpg" alt="Nuevo Estanque" class="card-img">
             <h3>Nuevo Estanque</h3>
             <p>Registra y administra tus estanques de manera eficiente.</p>
           </div>
           <div class="custom-card" @click="goToProcedimientos">
-            <img src="" alt="Procedimientos" class="card-img">
+            <img src="../assets/pro.jpg" alt="Procedimientos" class="card-img">
             <h3>Procedimientos</h3>
             <p>Consulta y gestiona los procedimientos realizados.</p>
           </div>
           <div class="custom-card" @click="goToInformacion">
-            <img src="" alt="Información" class="card-img">
+            <img src="../assets/inf.jpg" alt="Información" class="card-img">
             <h3>Información</h3>
             <p>Visualiza estadísticas y datos relevantes de tu actividad.</p>
           </div>

@@ -164,11 +164,11 @@ export default {
       },
       message: '', // Mensaje de éxito o error
       messageClass: '', // Clase de estilo para el mensaje
-      mostrarModalSugerencia: false, //modal para sugerencias
-      mostrarModalExceso: false, //modal para cantidad mayor a la recomendada
-      mostrarModalInsuficiente: false, //modal para cantidad menor a la recomendada
-      sugerenciaMin: 0, //funcion para calcular la cantidad minima de alimento
-      sugerenciaMax: 0, //funcion para calcular la cantidad maxima de alimento
+      mostrarModalSugerencia: false, // Modal para sugerencias
+      mostrarModalExceso: false, // Modal para cantidad mayor a la recomendada
+      mostrarModalInsuficiente: false, // Modal para cantidad menor a la recomendada
+      sugerenciaMin: 0, // Cantidad mínima sugerida
+      sugerenciaMax: 0, // Cantidad máxima sugerida
     };
   },
   watch: {
@@ -239,8 +239,8 @@ export default {
     cerrarModalInsuficiente() {
       this.mostrarModalInsuficiente = false;
     },
-  },
     async submitForm() {
+      console.log("Intentando guardar el estanque...");
       try {
         // Transformamos los datos para que tengan nombres en snake_case
         const transformedData = {
@@ -256,31 +256,22 @@ export default {
           fecha_siembra: this.form.fechaSiembra
         };
 
+        console.log("Datos enviados a la API:", transformedData);
+
         await ApiPond.createEstanque(transformedData); // Llamamos a la API con los datos transformados
 
         this.message = 'Estanque creado exitosamente!';
         this.messageClass = 'alert-success'; // Estilo de éxito
-
-        // Limpiamos el formulario después de la creación
-        this.form = {
-          nombreFinca: '', // Nuevo campo al momento de limpiar el formulario
-          numeroEstanque: '',
-          tipoEstanque: '',
-          profundidad: '',
-          ancho: '',
-          largo: '',
-          especiePez: '',
-          cantidad: '',
-          numeroAlimento: '',
-          fechaSiembra: ''
-        };
       } catch (error) {
+        console.error("Error en la API:", error);
         this.message = 'Error al crear el estanque, Ya existe un estanque con ese número: ' + (error.response?.data?.detail || error.message);
         this.messageClass = 'alert-danger';
       }
     }
-  };
+  }
+};
 </script>
+
 
 <style scoped>
 .container {
