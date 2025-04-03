@@ -376,13 +376,13 @@ button {
   color: #fff;
 }
 
-.container-finca {
-  width: 35%;
-}
 
 .modal-body {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
 }
 
+.container-finca {
+  width: 35%;
+}
 </style>
