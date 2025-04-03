@@ -10,17 +10,20 @@ class CreateEstanque(APIView):
 
     def post(self, request):
         try:
-            usuario = request.user
-            numero_estanque = request.data.get("numero_estanque")
-
+            usuario = request.user  # Usuario autenticado
+            numero_estanque = request.data.get("numero_estanque")  # Número de estanque
+            nombre_finca = request.data.get("nombre_finca", "").strip().lower()# Nuevo campo: Nombre de la finca
             # Verificar si ya existe un estanque con el mismo número para este usuario
-            if Estanque.objects.filter(id_user=usuario, numero_estanque=numero_estanque).exists():
-                return Response({'error': 'Ya existe un estanque con este número para este usuario.'},
-                                status=status.HTTP_400_BAD_REQUEST)
+            print(f"Usuario: {usuario}, Nombre Finca: '{nombre_finca}', Número Estanque: {numero_estanque}")
+            if Estanque.objects.filter(id_user=usuario, nombre_finca__iexact=nombre_finca, numero_estanque=numero_estanque).exists(): #hace que la búsqueda ignore mayúsculas y minúsculas.
+                return Response({'error': 'Ya existe un estanque con este número para esta finca.'},
+                    status=status.HTTP_400_BAD_REQUEST)
 
+            # Serializar los datos de entrada
             serializer = EstanqueSerializerInput(data=request.data, context={'request': request})
             if serializer.is_valid():
-                serializer.save(id_user=usuario)
+                # Guardar el estanque, incluyendo el nombre de la finca
+                serializer.save(id_user=usuario, nombre_finca=nombre_finca)
                 return Response(EstanqueSerializerOutput(serializer.instance).data, status=status.HTTP_201_CREATED)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -34,12 +37,14 @@ class UpdateEstanque(APIView):
     def patch(self, request, pk=None):
         try:
             usuario = request.user
-            # Filtrar por id_user en lugar de usuario
+            # Buscar el estanque que pertenece al usuario autenticado
             estanque_instance = Estanque.objects.get(pk=pk, id_user=usuario)
 
+            # Serializar los datos y permitir actualizaciones parciales (partial=True)
             serializer = EstanqueSerializerInput(estanque_instance, data=request.data, partial=True)
             if serializer.is_valid():
-                serializer.save()
+                # Si nombre_finca está en la solicitud, se actualiza; si no, mantiene su valor actual
+                serializer.save(nombre_finca=request.data.get("nombre_finca", estanque_instance.nombre_finca))
                 return Response(EstanqueSerializerOutput(serializer.instance).data, status=status.HTTP_200_OK)
 
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -47,6 +52,7 @@ class UpdateEstanque(APIView):
             return Response({'error': 'Estanque no encontrado o no tiene permisos.'}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class ListEstanque(APIView):

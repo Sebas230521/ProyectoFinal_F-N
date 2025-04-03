@@ -9,9 +9,9 @@ from registro.models import Usuario
 from .serializers import SolicitarRecuperacionSerializer, RecuperarContraseñaSerializer
 
 signer = TimestampSigner()
+from django.conf import settings  # Importar settings
 
 class SolicitarRecuperacion(APIView):
-    """Paso 1: El usuario envía su correo y el sistema genera un token."""
     permission_classes = [AllowAny]
 
     def post(self, request):
@@ -20,8 +20,15 @@ class SolicitarRecuperacion(APIView):
             email = serializer.validated_data['email']
             try:
                 usuario = Usuario.objects.get(email=email)
+
+                # Generar el token único
                 token = signer.sign(usuario.id)
-                reset_link = f"http://frontend.com/reset-password?token={token}"
+
+                # Obtener la URL desde settings
+                frontend_url = settings.FRONTEND_URL  
+                reset_link = f"{frontend_url}/updatePassword?token={token}"
+
+                # Enviar email con el enlace
                 send_mail(
                     'Recuperación de contraseña',
                     f'Para restablecer tu contraseña, haz clic en el siguiente enlace: {reset_link}',
@@ -29,10 +36,38 @@ class SolicitarRecuperacion(APIView):
                     [usuario.email],
                     fail_silently=False
                 )
+
                 return Response({"success": True, "message": "Si el correo existe, recibirás un enlace de recuperación."}, status=status.HTTP_200_OK)
+
             except Usuario.DoesNotExist:
                 pass  # No revelar si el email existe o no
+
         return Response({"success": False, "message": "Solicitud inválida."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# class SolicitarRecuperacion(APIView):
+#     """Paso 1: El usuario envía su correo y el sistema genera un token."""
+#     permission_classes = [AllowAny]
+
+#     def post(self, request):
+#         serializer = SolicitarRecuperacionSerializer(data=request.data)
+#         if serializer.is_valid():
+#             email = serializer.validated_data['email']
+#             try:
+#                 usuario = Usuario.objects.get(email=email)
+#                 token = signer.sign(usuario.id)
+#                 reset_link = f"http://frontend.com/reset-password?token={token}"
+#                 send_mail(
+#                     'Recuperación de contraseña',
+#                     f'Para restablecer tu contraseña, haz clic en el siguiente enlace: {reset_link}',
+#                     settings.EMAIL_HOST_USER,
+#                     [usuario.email],
+#                     fail_silently=False
+#                 )
+#                 return Response({"success": True, "message": "Si el correo existe, recibirás un enlace de recuperación."}, status=status.HTTP_200_OK)
+#             except Usuario.DoesNotExist:
+#                 pass  # No revelar si el email existe o no
+#         return Response({"success": False, "message": "Solicitud inválida."}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ConfirmarRecuperacion(APIView):

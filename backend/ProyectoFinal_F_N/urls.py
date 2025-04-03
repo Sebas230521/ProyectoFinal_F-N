@@ -23,6 +23,7 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('fish_api/', include('fish_management.urls')),
     path('procedimientos/', include('procedimientos.urls')),
+    path('informacion/', include('informacion.urls')), 
     path('recover_password/', include('recover_password.urls')),
     
 ]

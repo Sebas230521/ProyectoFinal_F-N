@@ -9,9 +9,11 @@ class CreateProcedimiento(APIView):
     permission_classes = [IsAuthenticated]
     
     def post(self, request):
+        # Si el frontend ya envía 'nombre_finca', no es necesario hacer cambios.
+        # En caso contrario, podrías modificar request.data antes de serializar.
         serializer = ProcedimientosSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()  # Aquí se crea el procedimiento
+            serializer.save()  # Se crea el procedimiento
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

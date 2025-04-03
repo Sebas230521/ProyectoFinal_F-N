@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'login',
     'fish_management',
     'procedimientos',
+    'informacion',
     'rest_framework',
     'rest_framework_simplejwt',
 ]
@@ -96,6 +97,8 @@ MIDDLEWARE = [
 
 
 CORS_ALLOW_CREDENTIALS = True
+
+FRONTEND_URL = "http://localhost:8080"
 
 
 CORS_ALLOWED_ORIGINS = [

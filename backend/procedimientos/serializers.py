@@ -3,13 +3,13 @@ from .models import Procedimientos
 from fish_management.models import Estanque 
 
 class ProcedimientosSerializer(serializers.ModelSerializer):
-    # Usa PrimaryKeyRelatedField para seleccionar el estanque por su ID
+    # Se utiliza PrimaryKeyRelatedField para seleccionar el estanque por su ID
     estanque = serializers.PrimaryKeyRelatedField(queryset=Estanque.objects.all())
 
     class Meta:
         model = Procedimientos
         fields = [
-            'responsable',
+            'nombre_finca',       
             'estanque',
             'tipoConcentrado',
             'nombreProcedimiento',

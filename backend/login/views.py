@@ -57,6 +57,7 @@ class LoginView(APIView):
         return Response({
             'mensaje': 'Inicio de sesión exitoso',
             'email': usuario.email,
+            'nombre': usuario.nombre,  # <-- Se recupera de la BD
             'access_token': access_token,
             'refresh_token': refresh_token
         }, status=status.HTTP_200_OK)
