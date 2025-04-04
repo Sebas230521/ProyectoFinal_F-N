@@ -7,9 +7,9 @@
     <p v-if="error" class="text-danger">{{ error }}</p>
 
     <!-- Select de estanques -->
-    <div v-if="!loading" class="form-group">
+    <div v-if="!loading" class="form-group form-control-sm w-50 mx-auto d-flex flex-column">
       <label for="estanqueSelect">Seleccione un estanque:</label>
-      <select id="estanqueSelect" v-model="selectedEstanque" @change="fetchInforme" class="form-control">
+      <select id="estanqueSelect" v-model="selectedEstanque" @change="fetchInforme" class="form-control  rounded-pill overflow-hidden">
         <option disabled value="">Seleccione un estanque</option>
         <option v-for="estanque in estanques" :key="estanque.id" :value="estanque.id">
           {{ estanque.nombre_finca }} - {{ estanque.numero_estanque }}
@@ -21,7 +21,7 @@
     <div v-if="selectedEstanque">
       <div v-if="htmlInforme" v-html="htmlInforme" class="mt-4"></div>
       <p v-else>No hay datos de informe.</p>
-      <button @click="descargarPDF" class="btn btn-primary mt-3">Descargar PDF</button>
+      <button @click="descargarPDF" class="btn  mt-3 rounded-pill overflow-hidden mx-auto d-flex flex-column">Descargar PDF</button>
     </div>
   </div>
 </template>
@@ -80,5 +80,12 @@ export default {
 <style scoped>
 .container {
   padding-top: 20px;
+}
+
+.btn{
+background: #FDC830; 
+background: -webkit-linear-gradient(to right, #F37335, #FDC830); 
+background: linear-gradient(to right, #F37335, #FDC830); 
+
 }
 </style>

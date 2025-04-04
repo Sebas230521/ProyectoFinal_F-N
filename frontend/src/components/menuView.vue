@@ -29,25 +29,25 @@
         <div class="cards-wrapper">
           <div class="custom-card" @click="goToNuevoEstanque">
             <img src="../assets/nuevoEstanqueF.jpg" alt="Nuevo Estanque" class="card-img">
-            <h3>Nuevo Estanque</h3>
-            <p>Registra y administra tus estanques de manera eficiente.</p>
+            <h3 class="">Nuevo Estanque</h3>
+            <p class="fs-6">Registra y administra tus estanques de manera eficiente.</p>
           </div>
           <div class="custom-card" @click="goToProcedimientos">
             <img src="../assets/imgProcedimientos.jpg" alt="Procedimientos" class="card-img">
             <h3>Procedimientos</h3>
-            <p>Consulta y gestiona los procedimientos realizados.</p>
+            <p class="fs-6">Consulta y gestiona los procedimientos realizados.</p>
           </div>
           <div class="custom-card" @click="goToInformacion">
             <img src="../assets/imginforme.jpg" alt="Información" class="card-img">
             <h3>Información</h3>
-            <p>Visualiza consumo y datos relevantes de los estanques.</p>
+            <p class="fs-6">Visualiza consumo y datos relevantes de los estanques.</p>
           </div>
         </div>
       </div>
     </main>
 
     <!-- Botón de ayuda flotante -->
-    <button class="help-floating-btn" @click="showHelp">
+    <button class="help-floating-btn m-3" @click="showHelp">
       <i class="bi bi-question-circle"></i>
     </button>
 
@@ -141,7 +141,8 @@ import { ref, onMounted } from "vue";
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 100vh;
+  /* height: 100vh; */
   background-color: #3f4142; /* Fondo gris claro */
 }
 
@@ -162,8 +163,8 @@ import { ref, onMounted } from "vue";
 
 /* Usuario */
 .user-initial {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -173,6 +174,19 @@ import { ref, onMounted } from "vue";
   color: white;
   border-radius: 50%;
   border: none;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0; /* Evita que salga de la pantalla */
+  left: auto; /* Asegura que no se alinee incorrectamente */
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 8px 0;
+  min-width: 120px;
+  z-index: 1000;
 }
 
 /* Contenido Principal */
@@ -186,10 +200,10 @@ import { ref, onMounted } from "vue";
 /* Tarjetas personalizadas */
 .cards-wrapper {
   display: flex;
-  gap: 100px;
+  gap: 110px;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 1000px;
+
 }
 
 .custom-card {
@@ -248,7 +262,7 @@ import { ref, onMounted } from "vue";
 }
 
 .help-floating-btn:hover {
-  background: #ff5733;
+  background: #312e2d;
 }
 
 /* Footer */
@@ -256,8 +270,9 @@ import { ref, onMounted } from "vue";
   background: #3a3a3a;
   color: white;
   text-align: center;
-  padding: 10px;
-  font-size: 14px;
+  padding: 15px;
+  /* font-size: 14px; */
+  width: 100%;
 }
 
 /* Modal */

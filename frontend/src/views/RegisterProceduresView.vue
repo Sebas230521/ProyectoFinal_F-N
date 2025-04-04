@@ -1,7 +1,7 @@
 <template>
-                <div class="container-fluid background-custom d-flex flex-column align-items-start">
+                <div class="container-fluid background-custom min-vh-100 d-flex flex-column align-items-start">
                         <!-- Contenedor de botones e imagen -->
-                        <div class="w-100 d-flex align-items-center justify-content-between position-relative mt-3 p-2">
+                        <div class="w-100 d-flex justify-content-between align-items-center mt-3 p-2">
                                 <button class="btn btn-danger" @click="goToMenu">
                                 <i class="bi bi-box-arrow-left"></i> Atrás
                                 </button>
@@ -11,7 +11,7 @@
                                 </button>
                         </div>
                 
-                        <div class="w-100 px-3 mt-4">
+                        <div class="w-100 px-3 mt-5">
                                 <ProceduresForm />
                         </div>
                 
@@ -72,22 +72,18 @@
 
 <style scoped>
 .background-custom {
-min-height: 100vh; /* Asegura que el contenedor ocupe toda la pantalla */
-display: flex;
-flex-direction: column;
-justify-content: center; /* Centra el contenido verticalmente */
-align-items: center;
-background-color: #434343;
+        padding-top: -2rem;
+        background-color: #434343;
 }
 
 /* Imagen centrada correctamente */
-.logo-centered {
+/* .logo-centered {
 position: absolute;
 left: 50%;
 transform: translateX(-50%);
 max-width: 100px; /* Ajusta el tamaño según necesidad */
-height: auto;
-}
+/* height: auto; */
+/* }*/ 
 
 
 /* Estilos para el modal */
