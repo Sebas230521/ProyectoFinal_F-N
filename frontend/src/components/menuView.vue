@@ -2,6 +2,10 @@
   <div class="app-container">
 
     <nav class="navbar">
+      <!-- Logo -->
+      <div class="logo">
+        <img src="../assets/logoMenuLBlanca.png" alt="Logo">
+      </div>
       <!-- Botón de usuario con menú desplegable -->
       <div class="dropdown">
         <button 
@@ -24,19 +28,19 @@
       <div class="card-container">
         <div class="cards-wrapper">
           <div class="custom-card" @click="goToNuevoEstanque">
-            <img src="../assets/des.jpg" alt="Nuevo Estanque" class="card-img">
+            <img src="../assets/nuevoEstanqueF.jpg" alt="Nuevo Estanque" class="card-img">
             <h3>Nuevo Estanque</h3>
             <p>Registra y administra tus estanques de manera eficiente.</p>
           </div>
           <div class="custom-card" @click="goToProcedimientos">
-            <img src="../assets/pro.jpg" alt="Procedimientos" class="card-img">
+            <img src="../assets/imgProcedimientos.jpg" alt="Procedimientos" class="card-img">
             <h3>Procedimientos</h3>
             <p>Consulta y gestiona los procedimientos realizados.</p>
           </div>
           <div class="custom-card" @click="goToInformacion">
-            <img src="../assets/inf.jpg" alt="Información" class="card-img">
+            <img src="../assets/imginforme.jpg" alt="Información" class="card-img">
             <h3>Información</h3>
-            <p>Visualiza estadísticas y datos relevantes de tu actividad.</p>
+            <p>Visualiza consumo y datos relevantes de los estanques.</p>
           </div>
         </div>
       </div>
@@ -138,17 +142,22 @@ import { ref, onMounted } from "vue";
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #8e9eab; /* Fondo gris claro */
+  background-color: #3f4142; /* Fondo gris claro */
 }
 
-/* Navbar */
 .navbar {
-  background: #3a3a3a; /* Gris oscuro */
-  color: white;
-  padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Distribuye elementos a los extremos */
   align-items: center;
+  padding: 10px 20px;
+  background-color: #3a3a3a; /* Color del navbar */
+}
+
+.logo {
+  width: 70px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
 }
 
 /* Usuario */
@@ -177,20 +186,20 @@ import { ref, onMounted } from "vue";
 /* Tarjetas personalizadas */
 .cards-wrapper {
   display: flex;
-  gap: 20px;
+  gap: 100px;
   flex-wrap: wrap;
   justify-content: center;
-  max-width: 900px;
+  max-width: 1000px;
 }
 
 .custom-card {
-  background: white;
+  background: rgba(255, 255, 255, 0.979);
   border-radius: 10px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border: 2px solid transparent; 
-  box-shadow: 0px 0px 15px 3px rgba(255, 165, 0, 0.8);
+  box-shadow: 0px 0px 15px 3px rgba(223, 93, 7, 0.808);
   text-align: center;
-  padding: 15px;
+  padding: 12px;
   cursor: pointer;
   transition: transform 0.2s;
   width: 250px; 
@@ -203,7 +212,7 @@ import { ref, onMounted } from "vue";
 
 .card-img {
   width: 100%;
-  height: 120px;
+  height: 200px;
   object-fit: cover;
   border-radius: 8px;
 }
@@ -215,7 +224,7 @@ import { ref, onMounted } from "vue";
 
 .custom-card p {
   font-size: 14px;
-  color: #6b6b6b;
+  color: #020202;
 }
 
 /* Botón de Ayuda Flotante */
